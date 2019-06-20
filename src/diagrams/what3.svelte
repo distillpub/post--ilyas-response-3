@@ -88,6 +88,7 @@
 
 <center>
 <div style="width:{width}px; height:{height}px; position: relative;">
+
 <svg width={width} height={height}>
 	  <defs>
 		<path id="arrow-right" d="M 0 0 C -2.779 1 -5.376 2.445 -7.69 4.28 L -6.14 0 L -7.69 -4.28 C -5.376 -2.445 -2.779 -1 0 0 Z"></path>
@@ -123,8 +124,6 @@
 		  		 marker-start="url(#arrow)"/>
 	{/each}
 
-
-
 	<line x1="{20}" y1="{yScale(0)}" x2="{width-20}" y2="{yScale(0)}" style="stroke:rgb(0,0,0);stroke-width:1" marker-start="url(#arrow)"/>	
 
 <!-- 	<use xlink:href="#arrow-right" transform="translate({width-20}, {yScale(0)})" class="figure-path"></use>
@@ -143,9 +142,10 @@
 		 &nbspLess robust &nbsp
 	</text>
  -->
-	<text x='{width-70}' y='{yScale(0) - 10}' class="axislabel" text-anchor="middle">
-		Less robust
-	</text>
+
+ 	<text x='{width-100}' y='{height - 20}'>||a||/||a||_Σ</text>
+ 	<text x='{width/2-95}' y='{20}'>log E[yf(x)]</text>
+
 
 	<text filter="url(#bg-text)" x='{y_axis_pos}' y='35' class="axislabel" text-anchor="middle">
 		More
@@ -163,7 +163,7 @@
 		useful
 	</text>
 
-	<text filter="url(#bg-text)" x='{y_axis_pos}' y='420' class="axislabel" text-anchor="middle">
+<!-- 	<text filter="url(#bg-text)" x='{y_axis_pos}' y='420' class="axislabel" text-anchor="middle">
 		Less
 	</text>
 	<text filter="url(#bg-text)" x='{y_axis_pos}' y='432' class="axislabel" text-anchor="middle">
@@ -175,7 +175,7 @@
 	</text>
 	<text x='{y_axis_pos}' y='432' class="axislabel" text-anchor="middle">
 		useful
-	</text>
+	</text> -->
 
 	{#each [3,710] as i}
 <!-- 	<circle cx='{xScale(eigs[i][0])}' cy='{yScale(eigs[i][1])}' 

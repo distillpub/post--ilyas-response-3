@@ -166,7 +166,7 @@
 		useful
 	</text>
 
-	<text filter="url(#bg-text)" x='{y_axis_pos}' y='420' class="axislabel" text-anchor="middle">
+<!-- 	<text filter="url(#bg-text)" x='{y_axis_pos}' y='420' class="axislabel" text-anchor="middle">
 		Less
 	</text>
 	<text filter="url(#bg-text)" x='{y_axis_pos}' y='432' class="axislabel" text-anchor="middle">
@@ -178,7 +178,7 @@
 	</text>
 	<text x='{y_axis_pos}' y='432' class="axislabel" text-anchor="middle">
 		useful
-	</text>
+	</text> -->
 
 	<circle cx='{xScale(ensemble[2][0])}' cy='{yScale(ensemble[2][1])}' 
 			style="fill:rgb(0,,0,1)" 
