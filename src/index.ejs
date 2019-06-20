@@ -208,7 +208,7 @@
   <h3> Ensembles and Distractors </h3>
 
   <p>
-    The work of Tsipras∗ et al  <d-cite key="ilyas2019adversarial"></d-cite>. suggests a simple construction  &#8212; a collection of non-robust and non-useful features with linear component $a_i$'s, if sufficiently uncorrelated, can be ensembled into a single useful, non-robust feature. 
+    The work of Tsipras et al  <d-cite key="tsipras2018robustness"></d-cite>. suggests a simple construction  &#8212; a collection of non-robust and non-useful features with linear component $a_i$'s, if sufficiently uncorrelated, can be ensembled into a single useful, non-robust feature. 
   </p>
   <center>
     <div class="eq-grid">
@@ -227,18 +227,14 @@
   </figure>  
 
   <p>
-    But now consider now an alternative construction. Here we interpolate a robust, useful feature and a non-robust, useless feature, and interpolate.
+    But now consider now an alternative construction. Here we interpolate a robust, useful feature and a non-robust, useless feature, and interpolate
   </p>
 
   <center>
     <div class="eq-grid">
-    <d-math block> f_{\alpha}(x)=\frac{(\alpha a_{\text{robust}}+(1-\alpha)a_{\text{non-robust}})^{T}x}{\|\alpha a_{\text{robust}}+(1-\alpha)a_{\text{non-robust}}\|_{\Sigma}}</d-math>
+    <d-math block> f_{\alpha}(x)=\frac{(\alpha a_{\text{robust}}+(1-\alpha)a_{\text{non-robust}})^{T}x}{\|\alpha a_{\text{robust}}+(1-\alpha)a_{\text{non-robust}}\|_{\Sigma}}, \qquad \alpha \in [0,1]</d-math>
     </div>
   </center>
-
-  <p>
-    For $\alpha$ between $0$ and $1$.
-  </p>
 
   <figure>
     <div id="what3"></div>
