@@ -2,6 +2,7 @@
 	import { scaleLinear } from 'd3-scale';
 	import { interpolateRainbow } from 'd3-scale-chromatic';
 	import { range } from 'd3-array'
+	import { line } from 'd3-shape'
 
 	var linspace = function(start, stop, nsteps){
 	  var delta = (stop-start)/(nsteps-1)
@@ -22,10 +23,13 @@
 	let use_pareto = false
 	let which_pareto = 0
 
+	let bottom = 520
+
+	let y_endpoint = -4.6
 	let mouseover = -1
 
-	let width = 90*6;
-	let height = 90*5;
+	let width = 90*7;
+	let height = 90*6;
 	const padding = { top: 60, right: 40, bottom: 40, left: 25 };
 
 	function myPos(){
@@ -44,15 +48,11 @@
 
 	let colorRange = function(x) {
 		var x = scaleLinear().domain([0,10]).range([0,4])(x)
-		return interpolateRainbow(x)
+		return interpolateRainbow(x).substring()
 	}
 
-	var contour = linspace(0.2,1.0, 1000).map((x,i) => [Math.log(x),Math.log((x - 0.9)/1.0 )])
-
-	console.log(contour)
-
 	$: alphaScale = scaleLinear()
-		.domain([-4.45, -4.0,-1])
+		.domain([-4.6, -3.9,-1])
 		.range([0,0.9,0.9]);
 
 	$: xScale = scaleLinear()
@@ -60,12 +60,21 @@
 		.range([padding.left, width - padding.right]);
 
 	$: yScale = scaleLinear()
-		.domain([-4.6, -0.5])
+		.domain([-4.6, 0.1])
 		.range([height - padding.bottom, padding.top]);
 
-	$: y_axis_pos = 90
+	$: y_axis_pos = xScale(0)
 
 	$: gridsize = use_pareto ? 8 : 27
+
+	var polyline = () => { 
+					let s = ""
+					for (let i = 0; i < pareto.length; i++) {
+						s = s + xScale(pareto[i][0]) + "," + yScale(pareto[i][1]) + " "
+					}
+					return s
+					}
+
 
 </script>
 
@@ -91,7 +100,7 @@
         </filter>
 
 	  </defs>
-
+<!-- 
 	{#each range(6) as i}
 	<line x1="{20}"
 		  y1="{height-50-90*i}"
@@ -102,14 +111,14 @@
 		  		 stroke-dasharray="5,3" 
 		  		 d="M5 20 l215 0"
 		  		 marker-start="url(#arrow)"/>
-	{/each}
+	{/each} -->
 
-	{#each range(5) as i}
-	<line x1="{width-90-90*i}"
-		  y1="{0}"
-		  x2="{width-90-90*i}"
-		  y2="{height}"
-		  style="stroke:rgb(0,0,0,0.1);
+	{#each range(40) as i}
+	<line x1="{i*100 - yScale(0)}"
+		  y1="{yScale(0)}"
+		  x2="{i*100 - yScale(y_endpoint)}"
+		  y2="{yScale(y_endpoint)}"
+		  style="stroke:rgb(0,0,0,0.15);
 		  		 stroke-width:1"
 		  		 stroke-dasharray="5,3"
 		  		 d="M5 20 l215 0"
@@ -118,19 +127,25 @@
 
 
 
-	<line x1="{20}" y1="{height-50}" x2="{width-20}" y2="{height-50}" style="stroke:rgb(0,0,0);stroke-width:1" marker-start="url(#arrow)"/>	
-	<use xlink:href="#arrow-right" transform="translate({width-20}, {height-50})" class="figure-path"></use>
-	<use xlink:href="#arrow-right" transform="translate({20}, {height-50}) rotate(180)" class="figure-path"></use>
+	<line x1="{20}" y1="{yScale(0)}" x2="{width-20}" y2="{yScale(0)}" style="stroke:rgb(0,0,0);stroke-width:1" marker-start="url(#arrow)"/>	
 
-	<line x1="{y_axis_pos}" y1="{0}" x2="{y_axis_pos}" y2="{height}" style="stroke:rgb(0,0,0);stroke-width:1" />
-	<use xlink:href="#arrow-down" transform="translate({y_axis_pos}, {0}) rotate(180)" class="figure-path"></use>
+<!-- 	<use xlink:href="#arrow-right" transform="translate({width-20}, {yScale(0)})" class="figure-path"></use>
+	<use xlink:href="#arrow-right" transform="translate({20}, {yScale(0)}) rotate(180)" class="figure-path"></use>
+ -->
+	<line x1="{20}" y1="{yScale(y_endpoint)}" x2="{width-20}" y2="{yScale(y_endpoint)}" style="stroke:rgb(0,0,0);stroke-width:1" marker-start="url(#arrow)"/>	
+<!-- 	<use xlink:href="#arrow-right" transform="translate({width-20}, {yScale(0)})" class="figure-path"></use>
+	<use xlink:href="#arrow-right" transform="translate({20}, {yScale(0)}) rotate(180)" class="figure-path"></use>
+ -->
+
+	<line x1="{y_axis_pos}" y1="{8}" x2="{y_axis_pos}" y2="{yScale(0) - 10}" style="stroke:rgb(0,0,0);stroke-width:1" />
+	<use xlink:href="#arrow-down" transform="translate({y_axis_pos}, {8}) rotate(180)" class="figure-path"></use>
 	<use xlink:href="#arrow-down" transform="translate({y_axis_pos}, {height}) rotate(0)" class="figure-path"></use>
 
-	<text filter="url(#bg-text)" x='{width-70}' y='{height-46}' class="axislabel" text-anchor="middle">
+<!-- 	<text filter="url(#bg-text)" x='{width-70}' y='{yScale(0)}' class="axislabel" text-anchor="middle">
 		 &nbspLess robust &nbsp
 	</text>
-
-	<text x='{width-70}' y='{height-46}' class="axislabel" text-anchor="middle">
+ -->
+	<text x='{width-70}' y='{yScale(0) - 10}' class="axislabel" text-anchor="middle">
 		Less robust
 	</text>
 
@@ -150,23 +165,25 @@
 		useful
 	</text>
 
-	<text filter="url(#bg-text)" x='{y_axis_pos}' y='420' class="axislabel" text-anchor="middle">
+	<text filter="url(#bg-text)" x='{y_axis_pos}' y='{bottom}' class="axislabel" text-anchor="middle">
 		Less
 	</text>
-	<text filter="url(#bg-text)" x='{y_axis_pos}' y='432' class="axislabel" text-anchor="middle">
+	<text filter="url(#bg-text)" x='{y_axis_pos}' y='{bottom+12}' class="axislabel" text-anchor="middle">
 		useful
 	</text>
 
-	<text x='{y_axis_pos}' y='420' class="axislabel" text-anchor="middle">
+	<text x='{y_axis_pos}' y='{bottom}' class="axislabel" text-anchor="middle">
 		Less
 	</text>
-	<text x='{y_axis_pos}' y='432' class="axislabel" text-anchor="middle">
+	<text x='{y_axis_pos}' y='{bottom+12}' class="axislabel" text-anchor="middle">
 		useful
 	</text>
 
 	{#each range(eigs.length) as i}
+<!-- 	<circle cx='{xScale(eigs[i][0])}' cy='{yScale(eigs[i][1])}' 
+	style="fill:{colorRange(Math.abs(pareto_weights[which_pareto][i]))}" r='{2.5}' val="{i}"/> -->
 	<circle cx='{xScale(eigs[i][0])}' cy='{yScale(eigs[i][1])}' 
-	style="fill:{colorRange(Math.abs(pareto_weights[which_pareto][i]))}" r='{2.5}' val="{i}"/>
+	style="fill:rgba(240,59,32,{alphaScale(eigs[i][1])})" r='{2.5}' val="{i}"/>
 	<circle cx='{xScale(eigs[i][0])}' cy='{yScale(eigs[i][1])}' style="fill:rgb(0,0,0,0)" r='16' 
 				val="{i}" on:mouseover='{myPos}' on:mouseout='{() => mouseover=-1}'/>
 	
@@ -177,20 +194,20 @@
 
 	{#each range(pareto.length) as i}
 	<circle cx='{xScale(pareto[i][0])}' cy='{yScale(pareto[i][1])}' 
-	style="fill:rgb(43,140,190,{alphaScale(pareto[i][1])})"r='2.5' val="{i}" pareto="true"/>
-	<circle cx='{xScale(pareto[i][0])}' cy='{yScale(pareto[i][1])}' style="fill:rgb(0,0,0,0)" r='16' 
+	style="fill:rgb(43,140,190,0.1)"r='2' val="{i}" pareto="true"/>
+	<circle cx='{xScale(pareto[i][0])}' cy='{yScale(pareto[i][1])}' style="fill:rgb(0,0,0,0)" r='12' 
 				val="{i}" on:mouseover='{myPos}' on:mouseout='{() => {mouseover=-1; use_pareto=false}}' pareto="true"/>
 	
 	{/each}	
 
+	  <polyline points="{polyline()}" style="fill:none;stroke:rgb(43,140,190,1);stroke-width:2" />	
 
-	{#each range(contour.length) as i}
-	<circle cx='{xScale(contour[i][0])}' cy='{yScale(contour[i][1])}' 
-	style="fill:rgb(0,0,0,1)" r='1' val="{i}"/>	
-	{/each}	
+  <text x='{xScale(pareto[0][0])}' y='{yScale(pareto[0][1]) + 5}' style="fill:rgba(43,140,190,1.0); font: normal 12px helvetica"> &nbsp Pareto Frontier of most useful </text>
+  <text x='{xScale(pareto[0][0])}' y='{yScale(pareto[0][1]) + 20}' style="fill:rgba(43,140,190,1.0); font: normal 12px helvetica"> &nbsp features given a fixed robustness </text>
+  <text x='{xScale(pareto[0][0])}' y='{yScale(pareto[0][1]) + 35}' style="fill:rgba(43,140,190,1.0); font: normal 12px helvetica"> &nbsp robustness </text>
+
 </svg>
 
-{use_pareto}
 <div class='small' 
 	 style="position:absolute; 
 	 		left:{vizx - 25}px; 

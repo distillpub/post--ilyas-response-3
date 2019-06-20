@@ -8,8 +8,9 @@ async function run(){
 	    const pareto = await (await fetch("https://storage.googleapis.com/clarity-public/ggoh/madry_response/what/pareto.json")).json()
 	    const pareto_weights = await (await fetch("https://storage.googleapis.com/clarity-public/ggoh/madry_response/what/pareto_weights.json")).json()
 	    const interp = await (await fetch("https://storage.googleapis.com/clarity-public/ggoh/madry_response/what/linear.json")).json()
+	    const ensemble = await (await fetch("https://storage.googleapis.com/clarity-public/ggoh/madry_response/what/ensemble.json")).json()
 
-	    return [eigs, pareto, pareto_weights, interp]
+	    return [eigs, pareto, pareto_weights, interp, ensemble]
 	}
 
 	const ordering = get_ordering()
@@ -20,6 +21,7 @@ async function run(){
 		var pareto = data[1]
 		var pareto_weights = data[2]
 		var interp = data[3]
+		var ensemble = data[4]
 
 		new What({
 			target: document.getElementById('what'),
@@ -34,8 +36,9 @@ async function run(){
 			target: document.getElementById('what2'),
 			props: {
 				eigs: eigs,
-				pareto: interp,
-				pareto_weights: pareto_weights
+				pareto: [[0,0]],
+				pareto_weights: pareto_weights,
+				ensemble: ensemble
 			}
 		});
 
