@@ -145,6 +145,10 @@
 		 &nbspLess robust &nbsp
 	</text>
  -->
+
+  	<text x='{width-100}' y='{height - 20}'>||a||/||a||_Σ</text>
+ 	<text x='{width/2-95}' y='{20}'>log E[yf(x)]</text>
+
 	<text x='{width-70}' y='{yScale(0) - 10}' class="axislabel" text-anchor="middle">
 		Less robust
 	</text>

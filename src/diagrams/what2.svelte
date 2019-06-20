@@ -165,6 +165,8 @@
 	<text x='{y_axis_pos}' y='47' class="axislabel" text-anchor="middle">
 		useful
 	</text>
+ 	<text x='{width-100}' y='{height - 20}'>||a||/||a||_Σ</text>
+ 	<text x='{width/2-95}' y='{20}'>log E[yf(x)]</text>
 
 <!-- 	<text filter="url(#bg-text)" x='{y_axis_pos}' y='420' class="axislabel" text-anchor="middle">
 		Less
