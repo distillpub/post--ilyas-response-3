@@ -1,238 +1,201 @@
 <script>
-	import { scaleLinear } from 'd3-scale';
-	import { interpolateRainbow } from 'd3-scale-chromatic';
-	import { range } from 'd3-array'
-	import { line } from 'd3-shape'
+    import Thumb from  './Thumb.svelte';
+    import Plot from  './Plot.svelte';
+    import { annotation, annotationLabel,annotationCalloutCurve } from 'd3-svg-annotation'
+    import { onMount } from 'svelte';
+    import { select } from 'd3-selection'
 
-	var linspace = function(start, stop, nsteps){
-	  var delta = (stop-start)/(nsteps-1)
-	  return range(start, stop+delta, delta).slice(0, nsteps)
-	}
+    export let name;
+    export let eigs;
+    export let pareto;
+    
+    let width = 83*7;
+    let height = 400;
 
-	// function range(n){
-	//   return Array(n).fill().map((_, i) => i);
-	// }
+    console.oldLog = console.log;
 
-	export let name;
-	export let eigs;
-	export let pareto;
-	export let pareto_weights;
+    console.log = function(value)
+    {
+        console.oldLog(value);
+        window.$log = value;
+    };
 
-	let vizx = 0
-	let vizy = 0
-	let use_pareto = false
-	let which_pareto = 0
+    onMount( () => {
 
-	let bottom = 520
+        const annotations = [{
+          x: 50,
+          y: 20,
+          dy: 0,
+          dx: 120,
+          color: "rgb(190,190,190)",
+          connector: {
+            end: "arrow",
+            type: "curve",
+            endScale: 0.8,
+            points: [[120/3, -15], [2*120/3, -15]]
+          }
+          }]
 
-	let y_endpoint = -4.6
-	let mouseover = -1
+        const makeAnnotations = annotation()
+          .editMode(false)
+          .annotations(annotations)
 
-	let width = 90*7;
-	let height = 90*6;
-	const padding = { top: 60, right: 40, bottom: 40, left: 25 };
+        select("#pareto_label_arrow")
+          .append("g")
+          .attr("class", "annotation-group")
+          .call(makeAnnotations)
 
-	function myPos(){
+        window.$dog = annotations
+        annotations[0].connector.points = [[140/3, 20], [2*140/3, 20]]
+        annotations[0].x = 30
+        annotations[0].dx = 140
 
-		if (this.getAttribute("pareto") == "true") {
-			use_pareto = true
-			which_pareto = this.getAttribute("val")
-		}
-	   	let x = this.getBoundingClientRect().x - this.parentNode.getBoundingClientRect().x
-	   	let y = this.getBoundingClientRect().y - this.parentNode.getBoundingClientRect().y
-	   	vizx = x
-	   	vizy = y
-	   	mouseover = this.getAttribute("val")
-	   	return [x,y]
-	}
+        const makeAnnotations2 = annotation()
+          .editMode(false)
+          .annotations(annotations)
 
-	let colorRange = function(x) {
-		var x = scaleLinear().domain([0,10]).range([0,4])(x)
-		return interpolateRainbow(x).substring()
-	}
+        select("#pareto_label_arrow_2")
+          .append("g")
+          .attr("class", "annotation-group")
+          .call(makeAnnotations2)
 
-	$: alphaScale = scaleLinear()
-		.domain([-4.6, -3.9,-1])
-		.range([0,0.9,0.9]);
-
-	$: xScale = scaleLinear()
-		.domain([-4, 8.2])
-		.range([padding.left, width - padding.right]);
-
-	$: yScale = scaleLinear()
-		.domain([-4.6, 0.1])
-		.range([height - padding.bottom, padding.top]);
-
-	$: y_axis_pos = xScale(0)
-
-	$: gridsize = use_pareto ? 8 : 27
-
-	var polyline = () => { 
-					let s = ""
-					for (let i = 0; i < pareto.length; i++) {
-						s = s + xScale(pareto[i][0]) + "," + yScale(pareto[i][1]) + " "
-					}
-					return s
-					}
-
+    })
 
 </script>
 
 <style>
-	.small {
-		font: normal 12px sans-serif; background: white
-	}
-	.axislabel {
-		font: normal 12px helvetica; color: black; font-weight: 100
-	}
+
+    .small {
+        font: normal 12px sans-serif; background: white; text-align: left
+    }
+
+    .header {
+        font: normal 14px sans-serif; background: white; text-align: left
+    }
+
+    .axislabel {
+        font: normal 12px helvetica; color: black; font-weight: 100
+    }
+
+    .grid-container {
+      position: absolute;
+      top: 65px;
+      display: grid;
+      grid-template-columns: auto auto;
+      padding: 10px;
+      width: 200px;
+    }
+
+    .grid {
+        margin: 100px;
+    }
+
+    .annotation-group {
+        color: black;
+    }
 
 </style>
 
-<center>
-<div style="width:{width}px; height:{height}px; position: relative;">
-<svg width={width} height={height}>
-	  <defs>
-		<path id="arrow-right" d="M 0 0 C -2.779 1 -5.376 2.445 -7.69 4.28 L -6.14 0 L -7.69 -4.28 C -5.376 -2.445 -2.779 -1 0 0 Z"></path>
-		<path id="arrow-down" d="M 0 0 C 1 2.779 2.445 5.376 4.28 7.69 L 0 6.14 L -4.28 7.69 C -2.444 5.376 -1 2.770 0 0 Z" transform="rotate(180, 0, 0)"></path>
-        <filter x="0" y="0" width="1" height="1" id="bg-text">
-          <feFlood flood-color="white"/>
-          <feComposite in="SourceGraphic" operator="xor" />
-        </filter>
 
-	  </defs>
-<!-- 
-	{#each range(6) as i}
-	<line x1="{20}"
-		  y1="{height-50-90*i}"
-		  x2="{width-20}"
-		  y2="{height-50-90*i}"
-		  style="stroke:rgb(0,0,0,0.1);
-		  		 stroke-width:1" 
-		  		 stroke-dasharray="5,3" 
-		  		 d="M5 20 l215 0"
-		  		 marker-start="url(#arrow)"/>
-	{/each} -->
+<div>
+    <div class="header" 
+           style="position:absolute; 
+                  top:0px;
+                  width:200px;
+                  text-align: right;">
+        The feature’s robustness as measured by the ratio of the 
+        mismatch of the weight vector and the data distribution
+    </div>
 
-	{#each range(40) as i}
-	<line x1="{i*100 - yScale(0)}"
-		  y1="{yScale(0)}"
-		  x2="{i*100 - yScale(y_endpoint)}"
-		  y2="{yScale(y_endpoint)}"
-		  style="stroke:rgb(0,0,0,0.15);
-		  		 stroke-width:1"
-		  		 stroke-dasharray="5,3"
-		  		 d="M5 20 l215 0"
-		  		 marker-start="url(#arrow)"/>
-	{/each}
+    <div class="grid-container" style="left:-30px">
+        <div class="small" style="text-align:center; font-weight: bold;">Useful</div>
+        <div class="small" style="text-align:center; font-weight: bold;">Non-Useful</div>
 
-
-
-	<line x1="{20}" y1="{yScale(0)}" x2="{width-20}" y2="{yScale(0)}" style="stroke:rgb(0,0,0);stroke-width:1" marker-start="url(#arrow)"/>	
-
-<!-- 	<use xlink:href="#arrow-right" transform="translate({width-20}, {yScale(0)})" class="figure-path"></use>
-	<use xlink:href="#arrow-right" transform="translate({20}, {yScale(0)}) rotate(180)" class="figure-path"></use>
- -->
-	<line x1="{20}" y1="{yScale(y_endpoint)}" x2="{width-20}" y2="{yScale(y_endpoint)}" style="stroke:rgb(0,0,0);stroke-width:1" marker-start="url(#arrow)"/>	
-<!-- 	<use xlink:href="#arrow-right" transform="translate({width-20}, {yScale(0)})" class="figure-path"></use>
-	<use xlink:href="#arrow-right" transform="translate({20}, {yScale(0)}) rotate(180)" class="figure-path"></use>
- -->
-
-	<line x1="{y_axis_pos}" y1="{8}" x2="{y_axis_pos}" y2="{yScale(0) - 10}" style="stroke:rgb(0,0,0);stroke-width:1" />
-	<use xlink:href="#arrow-down" transform="translate({y_axis_pos}, {8}) rotate(180)" class="figure-path"></use>
-	<use xlink:href="#arrow-down" transform="translate({y_axis_pos}, {height}) rotate(0)" class="figure-path"></use>
-
-<!-- 	<text filter="url(#bg-text)" x='{width-70}' y='{yScale(0)}' class="axislabel" text-anchor="middle">
-		 &nbspLess robust &nbsp
-	</text>
- -->
-
-  	<text x='{width-100}' y='{height - 20}'>||a||/||a||_Σ</text>
- 	<text x='{width/2-95}' y='{20}'>log E[yf(x)]</text>
-
-	<text x='{width-70}' y='{yScale(0) - 10}' class="axislabel" text-anchor="middle">
-		Less robust
-	</text>
-
-	<text filter="url(#bg-text)" x='{y_axis_pos}' y='35' class="axislabel" text-anchor="middle">
-		More
-	</text>
-
-	<text x='{y_axis_pos}' y='35' class="axislabel" text-anchor="middle">
-		More
-	</text>
-
-	<text filter="url(#bg-text)" x='{y_axis_pos}' y='47' class="axislabel" text-anchor="middle">
-		useful
-	</text>
-
-	<text x='{y_axis_pos}' y='47' class="axislabel" text-anchor="middle">
-		useful
-	</text>
-
-	<text filter="url(#bg-text)" x='{y_axis_pos}' y='{bottom}' class="axislabel" text-anchor="middle">
-		Less
-	</text>
-	<text filter="url(#bg-text)" x='{y_axis_pos}' y='{bottom+12}' class="axislabel" text-anchor="middle">
-		useful
-	</text>
-
-	<text x='{y_axis_pos}' y='{bottom}' class="axislabel" text-anchor="middle">
-		Less
-	</text>
-	<text x='{y_axis_pos}' y='{bottom+12}' class="axislabel" text-anchor="middle">
-		useful
-	</text>
-
-	{#each range(eigs.length) as i}
-<!-- 	<circle cx='{xScale(eigs[i][0])}' cy='{yScale(eigs[i][1])}' 
-	style="fill:{colorRange(Math.abs(pareto_weights[which_pareto][i]))}" r='{2.5}' val="{i}"/> -->
-	<circle cx='{xScale(eigs[i][0])}' cy='{yScale(eigs[i][1])}' 
-	style="fill:rgba(240,59,32,{alphaScale(eigs[i][1])})" r='{2.5}' val="{i}"/>
-	<circle cx='{xScale(eigs[i][0])}' cy='{yScale(eigs[i][1])}' style="fill:rgb(0,0,0,0)" r='16' 
-				val="{i}" on:mouseover='{myPos}' on:mouseout='{() => mouseover=-1}'/>
-	
-<!-- 	<text x='{xScale(eigs[i][0]) - 2}' y='{yScale(eigs[i][1]) -3}' class="small" on:mouseover='{() => mouseover = i}'>{i}</text>
- -->
-
-	{/each}
-
-	{#each range(pareto.length) as i}
-	<circle cx='{xScale(pareto[i][0])}' cy='{yScale(pareto[i][1])}' 
-	style="fill:rgb(43,140,190,0.1)"r='2' val="{i}" pareto="true"/>
-	<circle cx='{xScale(pareto[i][0])}' cy='{yScale(pareto[i][1])}' style="fill:rgb(0,0,0,0)" r='12' 
-				val="{i}" on:mouseover='{myPos}' on:mouseout='{() => {mouseover=-1; use_pareto=false}}' pareto="true"/>
-	
-	{/each}	
-
-	  <polyline points="{polyline()}" style="fill:none;stroke:rgb(43,140,190,1);stroke-width:2" />	
-
-  <text x='{xScale(pareto[0][0])}' y='{yScale(pareto[0][1]) + 5}' style="fill:rgba(43,140,190,1.0); font: normal 12px helvetica"> &nbsp Pareto Frontier of most useful </text>
-  <text x='{xScale(pareto[0][0])}' y='{yScale(pareto[0][1]) + 20}' style="fill:rgba(43,140,190,1.0); font: normal 12px helvetica"> &nbsp features given a fixed robustness </text>
-  <text x='{xScale(pareto[0][0])}' y='{yScale(pareto[0][1]) + 35}' style="fill:rgba(43,140,190,1.0); font: normal 12px helvetica"> &nbsp robustness </text>
-
-</svg>
-
-<div class='small' 
-	 style="position:absolute; 
-	 		left:{vizx - 25}px; 
-	 		top:{vizy - 100}px; 
-	 		visibility: {(mouseover == -1)? 'hidden':'visible'}; 
-	 		border: 2px solid white; 
-	 		box-shadow: 2px 2px 4px rgba(0,0,0,0.4); 
-	 		border-radius: 3px">
-	{#if mouseover >= 0}
-	{Math.exp(eigs[mouseover][1]).toFixed(2)}, {Math.exp(eigs[mouseover][0]).toFixed(2)}
-	{/if}
-	<div 
-	style="background-image:url('https://storage.googleapis.com/clarity-public/madry_response/what/{use_pareto ? 'pareto' : 'eigs'}.png'); 
-			background-position:{-80*(mouseover % gridsize)}px {-80*Math.floor(mouseover/gridsize)}px;
-			width: 80px;
-			height:80px;
-			background-size: {gridsize*80}px;">
-
-	</div>
-</div>
+        <Thumb i="2"   label="A" w="87" gridsize="27"/>
+        <Thumb i="11"   label="B" w="87" gridsize="27"/>
+        <Thumb i="93"  label="C" w="87" gridsize="27"/>
+        <Thumb i="229"  label="D" w="87" gridsize="27"/>
+        <Thumb i="535" label="E" w="87" gridsize="27"/>
+        <Thumb i="638" label="F" w="87" gridsize="27"/>
+    </div>
 </div>
 
+<div id="scatter" style="width:{width}px; height:{height}px; left:140px; position:relative;">
 
-</center>
+    <div style="position:absolute; 
+                left: 575px; 
+                top: {0}px;
+                width: 170px;
+                color:rgb(180,180,180)">
+        <p class="small" 
+           style="position:relative; 
+                  top:5px">
+            The feature’s correlation with  the positive label/he feature’s correlation with  the positive label
+        </p>
+    </div>
+
+    <div style="position:absolute; 
+                left: 575px; 
+                top: {90}px;
+                width: 170px;
+                color:rgb(180,180,180)">
+        <p class="small" 
+           style="position:relative; 
+                  top:5px">
+            The feature’s correlation with  the positive label/he feature’s correlation with  the positive label but it is a label. For the labels. Never the
+        </p>
+    </div>
+
+    <div style="position:absolute; 
+                left: 575px; 
+                width: 170px;
+                top: {2*height/3 - 40}px">
+        <d-math>\log \mathbf{'{'}E{'}'}[yf(x)]</d-math>
+        <p class="small" 
+           style="position:relative; 
+                  top:5px">
+            The feature's correlation with the positive label. 
+        </p>
+    </div>
+
+    <div style="position:absolute; 
+                left: 140px; 
+                top: 400px">
+        <div style="position: absolute;">
+            <center>
+                <d-math block>\log  \left( \frac{'{'}\|a\|{'}'}{'{'}\|a\|_\Sigma{'}'} \right) </d-math>
+            </center>
+        </div>
+        <div class="small" 
+               style="position:relative; 
+                      top:20px;
+                      left:135px;
+                      width:220px">
+            The feature’s robustness as measured by the ratio of the 
+            mismatch of the weight vector and the data distribution
+        </div>
+    </div>  
+
+    <div style="position: relative; left:90px"> 
+
+        <Plot name={name}
+              eigs={eigs}
+              pareto={pareto}
+              width={width-110}
+              height={height}
+              admissible_line="true"
+              id="what_scatter"
+              ps="2,11,93,229,535,638"
+              letters='A,B,C,D,E,F'/>
+
+    </div>
+    <div style="position: absolute; left:400px;top:5px">
+        <svg id="pareto_label_arrow"></svg>
+    </div>
+
+    <div style="position: absolute; left:400px;top:105px">
+        <svg id="pareto_label_arrow_2"></svg>
+    </div>    
+
+</div>
+

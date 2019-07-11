@@ -6,41 +6,29 @@
   <script src="https://distill.pub/template.v2.js"></script>
   <style><%= require("raw-loader!../static/style.css") %></style>
   <style>
-.eq-grid {
-  padding: 0px;
-  padding-left: 0px;
-  display: grid;
-  justify-content: center;
-  align-items: center;
-  grid-row-gap: 0px;
-  margin-top: 0px;
-  margin-bottom: 20px;
-}
-.eq-grid d-math {
-  font-size: 120%;
-}
-.eq-grid figcaption d-math {
-  font-size: 100%;
-}
-.eq-grid figcaption {
-}
-.eq-grid .expansion-marker {
-  border: 1px solid #CCC;
-  border-bottom: none;
-  height: 6px;
-  width: 100%;
-  margin-top: 6px;
-  margin-bottom: 6px;
-}
-.eq-grid .faded {
-  opacity: 0.5;
-}
+  .eq-grid {
+    padding: 0px;
+    padding-left: 0px;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    grid-row-gap: 0px;
+    margin-top: 0px;
+    margin-bottom: 10px;
+    margin-top: -10px;
+  }
 
-.option {
-  font-size: 16px;
-}
-  </style>
-}
+  .option {
+    font-size: 16px;
+  }
+
+  .small {
+    font-size: 12px;
+    color: grey;
+  }
+
+    </style>
+  
 </head>
 
 <body>
@@ -81,42 +69,36 @@
 <d-article>
 
   <p>
-    Ilyas et al <d-cite key="ilyas2019adversarial"></d-cite> define a <i>feature</i> as a function $f$ that takes $x$ from the <i>data distribution</i> $(x,y) \sim \mathcal{D}$ into a real number, restricted to have mean zero and unit variance. A feature is said to be <i>useful</i> if it has high correlation with the label. In the presence of an adversary Ilyas et al <d-cite key="ilyas2019adversarial"></d-cite>. argues the metric that truly matters is a feature's <i>robust usefulness</i>,
+    Ilyas et al. <d-cite key="ilyas2019adversarial"></d-cite> define a <i>feature</i> as a function $f$ that takes $x$ from the <i>data distribution</i> $(x,y) \sim \mathcal{D}$ into a real number, restricted to have mean zero and unit variance. A feature is said to be <i>useful</i> if it has high correlation with the label. But in the presence of an adversary Ilyas et al. <d-cite key="ilyas2019adversarial"></d-cite> argues the metric that truly matters is a feature's <i>robust usefulness</i>,
   </p>
 
-  <center>
-    <div class="eq-grid">
-    <d-math block>\mathbf{E}\left[\inf_{\|\delta\|\leq\epsilon}yf(x+\delta)\right]
+  <div class="eq-grid">
+    <d-math block>
+      \mathbf{E}\left[\inf_{\|\delta\|\leq\epsilon}yf(x+\delta)\right]
     </d-math>
-    </div>
-  </center>
+  </div>
 
   <p>
-    its correlation with the label while under attack. 
-  </p>
-
-  <p>
-    One might suspect that the most pedestrian features, such as the color of the sky, or the presence of a floppy ear on a dog, are robust and useful. But Ilyas et al  <d-cite key="ilyas2019adversarial"></d-cite>. suggests our models may also be taking advantage of useful, non-robust features & some of which may even lie beyond the threshold of human intuition. This begs the question: what might such non-robust features look like? 
+    its correlation with the label while under attack. Ilyas et al. <d-cite key="ilyas2019adversarial"></d-cite> suggests that in addition to the pedestrian, robust features we expect the net to take advantage of (such as the color of the sky), our models may also be taking advantage of useful, non-robust features, some of which may even lie beyond the threshold of human intuition. This begs the question: what might such non-robust features look like? 
   </p>
 
   <h3>Non-Robust Features in Linear Models</h3>
 
   <p>
 
-    Our search is simplified when we realize the following: non-robust features are not unique to complex models. As Ilyas et al <d-cite key="ilyas2019adversarial"></d-cite> observes, they can arise even in the humblest of models  &#8212; the linear one. Thus, we consider linear features of the form:
+    Our search is simplified when we realize the following: non-robust features are not unique to complex models. As Ilyas et al <d-cite key="ilyas2019adversarial"></d-cite> observes, they arise even in the humblest of models  &#8212; the linear one. Thus, we restrict our attention to linear features of the form:
 
   </p>
 
 <!--     The search for such a non-robust feature is considerabily simplified when we realize we the phenomenan of non-robust features are not unique to complex, non-linear models. Thus, we restrict our attention to linear features of the form -->
-  <p>
     <div class="eq-grid">
-    <d-math block>f(x) = \frac{a^Tx}{\|a\|_\Sigma}\qquad \text{where} \qquad \Sigma = \mathbf{E}[xx^T],
-    </d-math>
+      <d-math block>f(x) = \frac{a^Tx}{\|a\|_\Sigma}\qquad \text{where} \qquad \Sigma = \mathbf{E}[xx^T],
+      </d-math>
     </div>
-  </p>
 
   <p>
-    and assume, for notational simplicity, that $\mathbf{E}[x] = 0$. Linear features can be decomposed as: <d-footnote> This
+    and assume $\mathbf{E}[x] = 0$. The robust usefulness of a linear feature admits an elegant decomposition: 
+    <d-footnote> This
      <d-math block> 
       \begin{aligned}
       \mathbf{E}\left[\inf_{\|\delta\|\leq\epsilon}yf(x+\delta)\right] & =\mathbf{E}\left[yf(x)+\inf_{\|\delta\|\leq\epsilon}yf(\delta)\right]\\
@@ -129,63 +111,77 @@
   </p>
 
   <style>
-    #host::shadow  .katex-container .katex-display {
-      margin: 0px !important;
+    .undomargin {
+      position:relative; 
+      left:-1em;
+      top:0.2em;
     }
   </style>
 
-  <div class="eq-grid">
 
-    <div style="grid-row: 1; grid-column: 1; max-width: 170px"><d-math block>\mathbf{E}\left[\inf_{\|\delta\|\leq\epsilon}yf(x+\delta)\right]
-    </d-math></div>
+  <div style="display:flex; flex-direction: column; padding: 0px 80px 0px 80px">
 
+    <div style="display:flex;">
 
-    <div style="grid-row: 1; grid-column: 2; max-width: 170px;"><d-math block>=
-    </d-math></div>
+      <div style="margin: auto 0; flex: 3">
+        <span class="undomargin">
+        <d-math block>
+          \mathbf{E}\left[\inf_{\|\delta\|\leq\epsilon}yf(x+\delta)\right]
+        </d-math>
+        </span>
+      </div>
 
+      <div style="margin: auto 0; flex: 0.5">
+        <span class="undomargin">
+          <d-math block>=</d-math>
+        </span>
+      </div>
+
+      <div style="margin: auto 0; flex: 2">
+        <span class="undomargin">
+        <d-math  block>\mathop{\mathbf{E}[yf(x)]}</d-math>
+        </span>
+      </div>
+
+      <div style="margin: auto 0; flex: 0.5">
+        <span class="undomargin">
+        <d-math  block>-</d-math>
+        </span>
+      </div>
+
+      <div style="margin: auto 0; flex: 2">
+        <span class="undomargin">
+        <d-math block>\epsilon\frac{\|a\|_{*}}{\|a\|_{\Sigma}}</d-math>
+        </span>
+      </div>
     
-
-    <figcaption style="grid-row: 2; grid-column: 1;">
-      A linear feature's robust usefulness breaks into two terms:
-    </figcaption>
-
-    <div style="grid-row: 1; grid-column: 3; " >
-      <d-math  block>\mathop{\mathbf{E}[yf(x)]}</d-math>
-    </div>
-    <figcaption style="grid-row: 2; grid-column: 3;">
-      One equal to the correlation of $f(x)$ with label, it's usefulness,
-    </figcaption>
-
-    <div style="grid-row: 1; grid-column: 4;" >
-      <d-math  block>-</d-math>
     </div>
 
-    <div style="grid-row: 1; grid-column: 5;">
-      <d-math block>\epsilon\frac{\|a\|_{*}}{\|a\|_{\Sigma}}</d-math>
-    </div>
-    <figcaption style="grid-row: 2; grid-column: 5;">
-      and the second term measuring the metric misalignment between the adversary and the data distribution.
-    </figcaption>
+    <div style="display:flex; margin-bottom: 30px">  
 
+      <div style="line-height: 16px; flex: 3;" class="small">
+        Where the robust usefulness of a feature $f$ can be written as a sum of two terms,
+      </div>
+
+      <div style="line-height: 16px; flex: 0.5"></div>
+
+      <div style="line-height: 16px; flex: 2"  class="small">
+        with the first equal to the correlation of the feature with the label, 
+      </div>
+
+      <div style="line-height: 16px; flex: 0.5"></div>
+
+      <div style="line-height: 16px; flex: 2" class="small">
+        and the second a penalty for the feature's non-robustness.
+      </div>
+
+    </div>
   </div>
 
   <p>
-    Where $\|\cdot\|_*$ deontes the dual norm of $\|\cdot\|$. 
-    This decomposition gives us an instrument for visualizing the space of linear features. Given the binary classification task of separating
-    <select name="cars" style="font-size:16px">
-    <option value="volvo">"truck" and "airplane"
-    </option> 
-    <option value="volvo">4 from 7
-    </option>
-    </select>
-    in 
-    <select name="cars" style="font-size:16px">
-    <option>CIFAR-10</option>
-    <option value="saab">non-Robust dataset</option>
-    <option value="saab">robust dataset</option>
-    <option>MNIST</option>
-    </select>, we can emprically estimate the correlation and plot all the features  
-    <select name="cars" style="font-size:16px">
+    In the above equation $\|\cdot\|_*$ deontes the dual norm of $\|\cdot\|$. 
+    This decomposition gives us an instrument for visualizing the space of linear features. Given the binary classification task of separating "truck" and "frog" in CIFAR-10, we can emprically estimate the correlation and plot all the left singular vectors of the data in a two-dimensional plot:
+<!--     <select name="cars" style="font-size:16px">
     <option value="volvo">left singular vectors of the data</option>
     <option value="saab">pixels</option>
     <option value="saab">random directions</option>
@@ -193,62 +189,39 @@
     <option value="saab">wavelet basis</option>
     <option value="saab">sparse pca basis</option>
     <option value="saab">nmf basis</option>
-    </select>
-    in a two-dimensional plot:
+    </select> -->
   </p>
 
   <figure>
-    <div id="what"></div>
-    <p>
-    <center>
-    <figcaption>For the features corresponding to the eigenvalues of CIFAR-10, we see a correlation between a feature's robustness and its usefulness. The dashed, dotted lines are refer to the sets of permissible variables, variables for which robust correlation > 0 for any given epsilon attack. </figcaption>
-    </center>
-  </p>
+    <div id="what" style="position:relative; height:450px"></div>
   </figure>  
 
-  <h3> Ensembles and Distractors </h3>
-
   <p>
+    In the space of the eigenvalues, there appears to be a correlation between a feature's usefulness and robustness. But we can construct non-robust features by taking linear combinations of eigenvalues, and normalizing, as shown:
+  </p>
+<!--   <p>
     The work of Tsipras et al  <d-cite key="tsipras2018robustness"></d-cite>. suggests a simple construction  &#8212; a collection of non-robust and non-useful features with linear component $a_i$'s, if sufficiently uncorrelated, can be ensembled into a single useful, non-robust feature. 
   </p>
+ -->  
   <center>
     <div class="eq-grid">
-    <d-math block>   f(x)=\frac{\sum v_ix}{\|\sum v_{i}x\|_{\Sigma}},\qquad v_{i}=\text{sign}(\mathbf{E}[y_{i}a_{i}^{T}x])a_{i}^{T}
+    <d-math block>   f(x)=\frac{\sum v_{i}x}{\|\sum v_{i}x\|_{\Sigma}}
     </d-math>
     </div>
   </center>
   <p>
-    The above construction appears to be closest to the spirit to the author's personal intuition of a non-robust feature.
+    We demonstrate two constructions of non-robust features:
   </p>
 
   <figure>
-    <div id="what2"></div>
-    <p>
-  </p>
-  </figure>  
-
-  <p>
-    But now consider now an alternative construction. Here we interpolate a robust, useful feature and a non-robust, useless feature, and interpolate
-  </p>
-
-  <center>
-    <div class="eq-grid">
-    <d-math block> f_{\alpha}(x)=\frac{(\alpha a_{\text{robust}}+(1-\alpha)a_{\text{non-robust}})^{T}x}{\|\alpha a_{\text{robust}}+(1-\alpha)a_{\text{non-robust}}\|_{\Sigma}}, \qquad \alpha \in [0,1]</d-math>
+    <div style="position: relative; width:100px; height:670px">
+      <div style="position: absolute; left:0px" id="ensemble"></div>
+      <div style="position: absolute; left:0px"id="distractor"></div>
     </div>
-  </center>
-
-  <figure>
-    <div id="what3"></div>
-    <p>
-  </p>
   </figure>  
 
   <p>
-    We note that, as $\alpha$ approaches 1, the curve follows a horizontal trajectory before curving sharply downwards. The construction reveals an asymmetry between robustness and usefulness. A small component of non-robustness may dramatically increase a feature's vulnerability to attack, but have a minimal impact on its usefulness. Thus, any feature $f$ that is non-robust could have arisen due to cross-contamination of this kind.
-  </p>
-
-  <o>
-    This flaw arises even in situations where there can truly be said to be no non-robust features in the data, in the sense of a non-robust feature as described in <d-cite key="tsipras2018robustness"></d-cite>, Section 2. Thus, we believe that a more intuitive definition of a feature should depend on the data distribution only, and now how it is computed.
+    We note that, as $\alpha$ approaches 1, the curve follows a horizontal trajectory before curving sharply downwards. The construction reveals an asymmetry between robustness and usefulness. A small component of non-robustness may dramatically increase a feature's vulnerability to attack, but have a minimal impact on its usefulness. This cross-contamination illustrates the limitations of a computational definition of a feature.
   </p>
 
 </d-article>
