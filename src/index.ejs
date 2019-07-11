@@ -79,7 +79,7 @@
   </div>
 
   <p>
-    its correlation with the label while under attack. Ilyas et al. <d-cite key="ilyas2019adversarial"></d-cite> suggests that in addition to the pedestrian, robust features we expect the net to take advantage of (such as the color of the sky), our models may also be taking advantage of useful, non-robust features, some of which may even lie beyond the threshold of human intuition. This begs the question: what might such non-robust features look like? 
+    its correlation with the label while under attack. Ilyas et al. <d-cite key="ilyas2019adversarial"></d-cite> suggests that in addition to the pedestrian, robust features we know and love (such as the color of the sky), our models may also be taking advantage of useful, non-robust features, some of which may even lie beyond the threshold of human intuition. This begs the question: what might such non-robust features look like? 
   </p>
 
   <h3>Non-Robust Features in Linear Models</h3>
@@ -221,7 +221,10 @@
   </figure>  
 
   <p>
-    We note that, as $\alpha$ approaches 1, the curve follows a horizontal trajectory before curving sharply downwards. The construction reveals an asymmetry between robustness and usefulness. A small component of non-robustness may dramatically increase a feature's vulnerability to attack, but have a minimal impact on its usefulness. This cross-contamination illustrates the limitations of a computational definition of a feature.
+    We note that, as $\alpha$ approaches 1, the curve follows a horizontal trajectory before curving sharply downwards. The construction reveals an asymmetry between robustness and usefulness. A small component of non-robustness may dramatically increase a feature's vulnerability to attack, but have a minimal impact on its usefulness. 
+  </p>
+  <p>
+    Though the results of Ilyas et al. <d-cite key="ilyas2019adversarial"></d-cite> are highly suggestive, we believe the mathematical formalism surrounding the definition of a feature still requires refinement. In particular,  cross-contamination of the above kind illustrates the difficulty faced in using a computational definition of a feature to search for non-robust features.
   </p>
 
 </d-article>
