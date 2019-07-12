@@ -32,7 +32,7 @@
             end: "arrow",
             type: "curve",
             endScale: 0.8,
-            points: [[110/3, -10], [2*110/3, -10]]
+            points: [[110/3, -10], [2*110/3, -14]]
           }
           }]
 
@@ -175,6 +175,13 @@
         </div>
     </div>  
 
+    <div style="position: absolute; left:400px;top:5px;  pointer-events: none;">
+        <svg id="pareto_label_arrow"></svg>
+    </div>
+
+    <div style="position: absolute; left:400px;top:105px; pointer-events: none;">
+        <svg id="pareto_label_arrow_2"></svg>
+    </div>    
     <div style="position: relative; left:90px"> 
 
         <Plot name={name}
@@ -187,13 +194,7 @@
               letters='A,B,C,D,E,F'/>
 
     </div>
-    <div style="position: absolute; left:400px;top:5px">
-        <svg id="pareto_label_arrow"></svg>
-    </div>
 
-    <div style="position: absolute; left:400px;top:105px">
-        <svg id="pareto_label_arrow_2"></svg>
-    </div>    
 
 </div>
 
