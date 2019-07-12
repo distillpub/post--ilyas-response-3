@@ -64,7 +64,6 @@
 
 <d-title></d-title>
 
-
 <d-article>
 
   <p>
@@ -117,8 +116,7 @@
     }
   </style>
 
-
-  <div style="display:flex; flex-direction: column; padding: 0px 80px 0px 80px">
+  <div style="display:flex; flex-direction: column; padding: 0px 0px 0px 80px">
 
     <div style="display:flex;">
 
@@ -183,15 +181,6 @@
   </p>
   <o>
     Plotted below is the binary classification task of separating <i>truck</i> and <i>frog</i> in CIFAR-10 on the set of features $a_i$ corresponding to the $i^{th}$ singular vector of the data.
-<!--     <select name="cars" style="font-size:16px">
-    <option value="volvo">left singular vectors of the data</option>
-    <option value="saab">pixels</option>
-    <option value="saab">random directions</option>
-    <option value="saab">fourier basis</option>
-    <option value="saab">wavelet basis</option>
-    <option value="saab">sparse pca basis</option>
-    <option value="saab">nmf basis</option>
-    </select> -->
   </p>
 
   <figure>
@@ -201,18 +190,19 @@
   <p>
     For these features, the non-robust, useful features seem conspicuously absent. We can, however, construct such features by strategic combining elements of this basis.
   </p>
-<!--   <p>
-    The work of Tsipras et al  <d-cite key="tsipras2018robustness"></d-cite>. suggests a simple construction  &#8212; a collection of non-robust and non-useful features with linear component $a_i$'s, if sufficiently uncorrelated, can be ensembled into a single useful, non-robust feature. 
+
+  <p>
+    We demonstrate two constructions of non-robust features,
   </p>
- -->  
   <center>
     <div class="eq-grid">
-    <d-math block>   f(x)=\frac{\sum \alpha_ia_{i}x}{\|\sum \alpha_ia_{i}x\|_{\Sigma}}
+    <d-math block>   f(x)=\frac{\sum v_{i}x}{\|\sum v_{i}x\|_{\Sigma}}
     </d-math>
     </div>
   </center>
   <p>
-    We demonstrate two constructions of non-robust features:
+    with $v_i$'s specified below.  <span style="visibility: hidden;"><d-cite key="tsipras2018robustness"></d-cite></span>
+
   </p>
 
   <figure>
@@ -227,7 +217,7 @@
   </p> -->
 
   <p>
-    It is surprising, thus, that the experiments of Madry et al. <d-cite key="ilyas2019adversarial"></d-cite> <i>do</i> distinguish between the non-robust useful features generated from the world of ensembles and distractors. A definition of a robust feature that distinguishes these two worlds is yet to exist, and we present this as an open problem to the machine learning community.
+    It is surprising, thus, that the experiments of Madry et al. <d-cite key="ilyas2019adversarial"></d-cite> <i>do</i> distinguish between the non-robust useful features generated from ensembles and distractors. A definition of a robust feature that distinguishes these two worlds is yet to exist, and we present this as an open problem to the machine learning community.
   </p>
 
 <!--     We note that, as $\alpha$ approaches 1, the curve follows a horizontal trajectory before curving sharply downwards. The construction reveals an asymmetry between robustness and usefulness. A small component of non-robustness may dramatically increase a feature's vulnerability to attack, but have a minimal impact on its usefulness. 
@@ -241,11 +231,7 @@
 <d-appendix>
   <h3>Acknowledgments</h3>
   <p>
-    We are deeply grateful to...
-  </p>
-
-  <p>
-    Many of our diagrams are based on...
+    Shan Carter (design overhaul), Preetum (technical discussion), Chris Olah (technical discussion), Ludwig (overall feedback), Ria (feedback)
   </p>
 
   <h3>Author Contributions</h3>

@@ -154,7 +154,7 @@
         <p class="small" 
            style="position:relative; 
                   top:5px">
-            Log Usefulness. Measured by the feature's empirical correlation with the positive label. 
+            Log usefulness. Measured by the feature's empirical correlation with the positive label. 
         </p>
     </div>
 
