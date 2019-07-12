@@ -93,12 +93,13 @@ let colorRange = function(x) {
     return interpolateRainbow(x).substring()
 }
 
+console.log(eigs)
 $: alphaScale = scaleLinear()
     .domain([-4.6, -4.4,-1])
     .range([0,1.0,1.0]);
 
 $: xScale = scaleLinear()
-    .domain([x_min, x_max])
+    .domain([-x_max, -x_min])
     .range([0, width - padding_left]);
 
 $: yScale = scaleLinear()
@@ -130,7 +131,7 @@ onMount(() => {
       note: { label: "Hi"},
       x: xScale(eigs[ps[i]][0]), y: yScale(eigs[ps[i]][1]),
       dy: 137, dx: 162,
-      color:"rgb(254,178,76, 1.0)",
+      color:"rgb(192,136,133, 1.0)",
       subject: {
         text: letters[i],
         radius: 12,

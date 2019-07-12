@@ -1,6 +1,7 @@
 import What from './diagrams/What.svelte';
 import Ensemble from './diagrams/Ensemble.svelte';
 import Distractor from './diagrams/Distractor.svelte';
+import Marker from './diagrams/Marker.svelte';
 
 async function run(){
 	async function get_ordering() {

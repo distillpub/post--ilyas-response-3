@@ -24,8 +24,8 @@
 
         const annotations = [{
           x: 60,
-          y: 20,
-          dy: 0,
+          y: 30,
+          dy: -10,
           dx: 110,
           color: "rgb(190,190,190)",
           connector: {
@@ -154,25 +154,24 @@
         <p class="small" 
            style="position:relative; 
                   top:5px">
-            Usefulness. Measured by the feature's empirical correlation with the positive label. 
+            Log Usefulness. Measured by the feature's empirical correlation with the positive label. 
         </p>
     </div>
 
     <div style="position:absolute; 
-                left: 140px; 
-                top: 405px">
+                left: 100px; 
+                top: 410px">
         <div style="position: absolute;">
             <center>
-                <d-math block>\log  \left( \frac{'{'}\|a\|{'}'}{'{'}\|a\|_\Sigma{'}'} \right) </d-math>
+                <d-math block>\log  \left( \frac{'{'}\|a_i\|_\Sigma{'}'}{'{'}\|a_i\|{'}'} \right) = \log(\lambda_i)</d-math>
             </center>
         </div>
         <div class="small" 
                style="position:relative; 
-                      top:27px;
-                      left:135px;
-                      width:220px">
-             Feature’s fragility (non-robustness). The norm in the numerator is the <d-math>L
-             _2</d-math> norm.
+                      top:15px;
+                      left:225px;
+                      width:230px">
+             Feature’s log robustness. When <d-math>a_i's</d-math> are the <d-math>i^\{"{th}"}</d-math> eigenvalues of <d-math>\Sigma</d-math>, the robustness reduces to the <d-math>i^{"{th}"}</d-math> singular value of <d-math>\lambda_i</d-math>
         </div>
     </div>  
 
