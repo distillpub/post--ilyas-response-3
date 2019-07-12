@@ -76,11 +76,14 @@ function myPos(){
         use_pareto = true
         which_pareto = this.getAttribute("val")
     }
-    let x = this.getBoundingClientRect().x - this.parentNode.getBoundingClientRect().x
-    let y = this.getBoundingClientRect().y - this.parentNode.getBoundingClientRect().y
+    let x = this.getBoundingClientRect().x - 
+            this.parentNode.parentNode.getBoundingClientRect().x
+    let y = this.getBoundingClientRect().y - 
+            this.parentNode.parentNode.getBoundingClientRect().y
     vizx = x
     vizy = y
     mouseover = this.getAttribute("val")
+    console.log([x,y])
     return [x,y]
   }
 }
