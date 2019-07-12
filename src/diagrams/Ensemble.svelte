@@ -72,7 +72,7 @@
 
         <div style="padding:5px">
 	        <p>
-    				This process is illustrated above numerically. We choose a set of non-robust features by excluding all features above a threshold, and naviely ensembling them according to:
+    				This process is illustrated above numerically. We choose a set of non-robust features by excluding all features above a threshold, and naively ensembling them according to:
     			</p>
           <div style="position:relative; margin:auto; width:60%; top:-10px; height:40px">
     			<d-math block>
