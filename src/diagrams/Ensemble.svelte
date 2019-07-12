@@ -16,7 +16,7 @@
         <div style="padding:5px">
         <div style="font-size: 20px; padding-bottom: 10px"><b>Ensembles</b></div>
           <p>
-            The work of Tsipras et al <d-cite key="tsipras2018robustness"></d-cite> suggests a collection of non-robust and non-useful features, if sufficiently uncorrelated, can be ensembled into a single useful, non-robust feature <Marker letter=""/>. 
+            The work of Tsipras et al <d-cite key="tsipras2018robustness"></d-cite> suggests a collection of non-robust and non-useful features, if sufficiently uncorrelated, can be ensembled into a single useful, non-robust feature <Marker letter="f"/>. 
           </p>
         </div>
 
@@ -27,7 +27,7 @@
                 width={width} 
                 height={height}
                 id="ensemble_scatter"
-                color={(x,y) => {return x > -9.11503019 ? [236,236,236] : [227,74,51] } }
+                color={(x,y) => {return x > -9.11503019 ? [236,236,236] : [192,136,133] } }
                 y_max="-0.6"
                 tooltip="{false}"
                 v_line="-9.11503019"
@@ -72,9 +72,13 @@
 
         <div style="padding:5px">
 	        <p>
-    				This process is illustrated above numerically. We choose a set of non-robust features by excluding all features above a threshold, and naively ensembling them according to:
-    			</p>
-          <div style="position:relative; margin:auto; width:60%; top:-10px; height:40px">
+    			This process is illustrated above numerically. We choose a set of non-robust features by excluding all features above a threshold, and naively ensembling them according to:
+    		</p>
+          <div style="position:relative;
+          			  margin:auto;
+          			  width:60%;
+          			  top:-10px;
+          			  height:40px">
     			<d-math block>
     				{"v_{i}=\\text{sign}(\\mathbf{E}[y_{i}a_{i}^{T}x])a_{i}^{T}"}
     			</d-math>

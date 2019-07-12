@@ -5,8 +5,6 @@ export let i;
 export let w;
 export let label = undefined;
 export let margin = "5px 15px 14px 15px"
-
-console.log(filename)
 </script>
 
 <style type="text/css">

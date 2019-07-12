@@ -17,7 +17,7 @@
         <div style="padding:5px">
         <div style="font-size: 20px; padding-bottom: 10px;"><b>Distractors</b></div>
           <p>
-            But now consider now an alternative construction. If we interpolate a robust useful feature <Marker letter="1" color="rgb(192,136,133)"/>and a non-robust useless feature <Marker letter="2" color="rgb(192,136,133)"/>, we obtain, surprisingly, a non-robust feature <Marker letter=""/> too. 
+            But now consider now an alternative construction. If we interpolate a robust useful feature <Marker letter="1" color="rgb(192,136,133)"/>and a non-robust useless feature <Marker letter="2" color="rgb(192,136,133)"/>, we obtain, surprisingly, a non-robust feature <Marker letter="f"/> too. 
           </p>
         </div>
 
@@ -52,7 +52,7 @@
           <div style="position:absolute; left:85px; top:275px">
               <Thumb i="2" w="54" gridsize="2" filename="distractors.png"/>
               <span style="font-size: 12px; left:20px; top:-20px; position: relative;">
-              <d-math>a_{"\\text{nonrobust}"}</d-math>
+              <d-math>a_{"\\text{non-robust}"}</d-math>
               </span>
           </div>
 
@@ -98,11 +98,11 @@
     
           <div style="position:relative; margin:auto; width:56%; top:-15px; height:65px">          
             <d-math block>
-              {"v_{1}=\\alpha a_{\\text{robust}}"}
+              {"v_{1}=\\alpha \\cdot a_{\\text{robust}}"}
             </d-math>
             <div style="position:relative; top:-20px">
             <d-math block>
-              {"v_{2}=(1-\\alpha)a_{\\text{non-robust}}"}
+              {"v_{2}=(1-\\alpha) \\cdot a_{\\text{non-robust}}"}
             </d-math>
             </div>
           </div>

@@ -151,7 +151,7 @@ onMount(() => {
     dy: 137, dx: 162,
     color:"rgb(178,24,43,1.0)",
     subject: {
-      text: "",
+      text: "f",
       radius: 12,
     }}]
 
