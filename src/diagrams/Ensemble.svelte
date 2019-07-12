@@ -11,7 +11,7 @@
 
 <div style="width:{width}px; height:{height+290}px; left:160px; position:relative;">
 
-    <div style="position: absolute; left:-250px; width:{width}px"> 
+    <div style="position: absolute; left:-250px; width:{width}px; border-top: 1px solid black; "> 
         <div style="padding:5px">
         <div style="font-size: 20px; padding-bottom: 10px"><b>Ensembles</b></div>
           <p>
@@ -50,7 +50,7 @@
             </svg>
           </div>
 
-          <div style="position:absolute; left:135px; top:170px; font-size: 12px; line-height: 12px; text-align: right; width:120px; color:grey">
+          <div style="position:absolute; left:135px; top:315px; font-size: 12px; line-height: 12px; text-align: right; width:120px; color:grey">
           We exclude all features to the left of a threshold
           </div>
 
@@ -78,7 +78,7 @@
     			</d-math>
           </div>
           <p>
-            We note that by choosing the optimal weights in which to combine these features, we can potentially even better.
+          	This construction is closest in spirit to the author's idea of what a non-robust feature looks like.
           </p>
 
         </div>

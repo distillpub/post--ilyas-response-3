@@ -130,7 +130,7 @@ onMount(() => {
       note: { label: "Hi"},
       x: xScale(eigs[ps[i]][0]), y: yScale(eigs[ps[i]][1]),
       dy: 137, dx: 162,
-      color:"rgb(178,24,43,0.6)",
+      color:"rgb(254,178,76, 1.0)",
       subject: {
         text: letters[i],
         radius: 12,
@@ -148,9 +148,9 @@ onMount(() => {
     note: { label: "Hi"},
     x: xScale(extra_point[0]), y: yScale(extra_point[1]),
     dy: 137, dx: 162,
-    color:"rgb(178,24,43,0.6)",
+    color:"rgb(178,24,43,1.0)",
     subject: {
-      text: "R",
+      text: "",
       radius: 12,
     }}]
 
