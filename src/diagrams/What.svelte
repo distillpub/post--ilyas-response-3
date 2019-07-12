@@ -23,16 +23,16 @@
     onMount( () => {
 
         const annotations = [{
-          x: 50,
+          x: 60,
           y: 20,
           dy: 0,
-          dx: 120,
+          dx: 110,
           color: "rgb(190,190,190)",
           connector: {
             end: "arrow",
             type: "curve",
             endScale: 0.8,
-            points: [[120/3, -15], [2*120/3, -15]]
+            points: [[110/3, -10], [2*110/3, -10]]
           }
           }]
 
@@ -46,18 +46,18 @@
           .call(makeAnnotations)
 
         window.$dog = annotations
-        annotations[0].connector.points = [[140/3, 20], [2*140/3, 20]]
-        annotations[0].x = 30
-        annotations[0].dx = 140
+        annotations[0].connector.points = [[120/3, 20], [2*120/3, 20]]
+        annotations[0].x = 50
+        annotations[0].dx = 120
 
-        const makeAnnotations2 = annotation()
-          .editMode(false)
-          .annotations(annotations)
+        // const makeAnnotations2 = annotation()
+        //   .editMode(false)
+        //   .annotations(annotations)
 
-        select("#pareto_label_arrow_2")
-          .append("g")
-          .attr("class", "annotation-group")
-          .call(makeAnnotations2)
+        // select("#pareto_label_arrow_2")
+        //   .append("g")
+        //   .attr("class", "annotation-group")
+        //   .call(makeAnnotations2)
 
     })
 
@@ -130,21 +130,21 @@
         <p class="small" 
            style="position:relative; 
                   top:5px">
-            The feature’s correlation with  the positive label/he feature’s correlation with  the positive label
+            Pareto frontier of points in the non-robustness and usefulness space.
         </p>
     </div>
 
-    <div style="position:absolute; 
+<!--     <div style="position:absolute; 
                 left: 575px; 
-                top: {90}px;
+                top: {70}px;
                 width: 170px;
                 color:rgb(180,180,180)">
         <p class="small" 
            style="position:relative; 
                   top:5px">
-            The feature’s correlation with  the positive label/he feature’s correlation with  the positive label but it is a label. For the labels. Never the
+            Threshold of admissibility for <d-math>\epsilon = 1</d-math>. Features above this line cannot be used in a robust model in the presence of a <d-math>\epsilon = 1</d-math> <d-math>L_2</d-math> attack, as they can be driven by the adversery to negative values. 
         </p>
-    </div>
+    </div> -->
 
     <div style="position:absolute; 
                 left: 575px; 
@@ -160,7 +160,7 @@
 
     <div style="position:absolute; 
                 left: 140px; 
-                top: 400px">
+                top: 405px">
         <div style="position: absolute;">
             <center>
                 <d-math block>\log  \left( \frac{'{'}\|a\|{'}'}{'{'}\|a\|_\Sigma{'}'} \right) </d-math>
@@ -171,8 +171,7 @@
                       top:20px;
                       left:135px;
                       width:220px">
-            The feature’s robustness as measured by the ratio of the 
-            mismatch of the weight vector and the data distribution
+            The feature’s robustness as measured by the norm mismatch between the attacker and the data distribution.
         </div>
     </div>  
 
@@ -183,7 +182,6 @@
               pareto={pareto}
               width={width-110}
               height={height}
-              admissible_line="true"
               id="what_scatter"
               ps="2,11,93,229,535,638"
               letters='A,B,C,D,E,F'/>

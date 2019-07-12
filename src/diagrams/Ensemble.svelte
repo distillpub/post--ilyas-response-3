@@ -15,7 +15,7 @@
         <div style="padding:5px">
         <div style="font-size: 20px"><b>Ensembles</b></div>
           <p>
-            The work of Tsipras et al [2] suggests a collection of non-robust and non-useful features with linear component, if sufficiently uncorrelated, can be ensembled into a single useful, non-robust feature. 
+            The work of Tsipras et al [2] suggests a collection of non-robust and non-useful features, if sufficiently uncorrelated, can be ensembled into a single useful, non-robust feature. 
           </p>
         </div>
 
@@ -33,7 +33,7 @@
                 extra_point="{[10.00926143, -1.5710188]}"
                 />
 
-          <div style="position:absolute; top: 105px; left:232px">
+          <div style="position:absolute; top: 105px; left:248px">
 
             <svg width="147px" height="221px" viewBox="0 0 147 221" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <defs>
@@ -50,33 +50,36 @@
             </svg>
           </div>
 
-          <div style="position:absolute; left:120px; top:150px; font-size: 12px; line-height: 12px; text-align: right; width:120px; color:grey">
+          <div style="position:absolute; left:135px; top:170px; font-size: 12px; line-height: 12px; text-align: right; width:120px; color:grey">
           We exclude all features to the left of a threshold
           </div>
 
-          <div style="position:absolute; left:250px; top:10px">
+          <div style="position:absolute; left:270px; top:10px">
               <Thumb i="0" w="54" gridsize="1" filename="ensemble.png"/>
           </div>
 
-          <div style="position:absolute; left:300px; top:250px">
-              <Thumb i="501" w="54" gridsize="27"/>
+          <div style="position:absolute; left:320px; top:250px">
+              <Thumb i="501" w="44" gridsize="27"/>
           </div>
 
-          <div style="position:absolute; left:220px; top:300px">
-              <Thumb i="562" w="54" gridsize="27"/>
+          <div style="position:absolute; left:250px; top:300px">
+              <Thumb i="562" w="44" gridsize="27"/>
           </div>
 
         </div>
 
         <div style="padding:5px">
 	        <p>
-    				This process is illustrated above numerically, where each feature is ensembled accordingto. 
+    				This process is illustrated above numerically. We choose a set of features non-robust features by excluding all features above a threshold, and ensemble them according to:
     			</p>
-          <div style="position:relative; margin:auto; width:60%; top:-10px">
+          <div style="position:relative; margin:auto; width:60%; top:-10px; height:40px">
     			<d-math block>
     				{"v_{i}=\\text{sign}(\\mathbf{E}[y_{i}a_{i}^{T}x])a_{i}^{T}"}
     			</d-math>
           </div>
+          <p>
+            Note that the features constructed by ensembling is the closest to the author's intuition of what a non-robust feature is. 
+          </p>
 
         </div>
 

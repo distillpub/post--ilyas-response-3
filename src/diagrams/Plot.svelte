@@ -8,6 +8,7 @@ import Thumb from  './Thumb.svelte';
 import { onMount } from 'svelte';
 import { annotation, annotationLabel, annotationBadge } from 'd3-svg-annotation'
 import { select } from 'd3-selection'
+import { axisLeft, axisBottom } from 'd3-axis'
 
 
 var linspace = function(start, stop, nsteps){
@@ -23,13 +24,15 @@ export let height;
 export let admissible_line = false;
 export let id;
 export let color = () => [227,74,51]
-export let x_min = 3.0
-export let x_max = 13
+export let x_min = 2.8
+export let x_max = 12.8
 export let y_min = -4.6
 export let y_max = 0.1
 export let tooltip = true
 export let pareto_stroke = "rgb(100,100,100,0.5)"
 export let pareto_dash = "4 4"
+
+let padding_left = 20
 
 // 8.30409998,  9.31734006, -1.50309011
 // [9.11503019, 10.00926143, -1.5710188]
@@ -93,7 +96,7 @@ $: alphaScale = scaleLinear()
 
 $: xScale = scaleLinear()
     .domain([x_min, x_max])
-    .range([0, width - 0]);
+    .range([0, width - padding_left]);
 
 $: yScale = scaleLinear()
     .domain([y_min, y_max])
@@ -112,6 +115,10 @@ var polyline = () => {
                 return s
                 }
 
+$: axis_btm = axisBottom(xScale);
+$: axis_left = axisLeft(yScale).ticks(4, ",f");
+
+
 onMount(() => {
 
   for (var i = 0; i < ps.length; i ++ ) {
@@ -129,7 +136,7 @@ onMount(() => {
     let l1 = annotation().type(annotationBadge).annotations(annotations).editMode(false)
 
     let x = select('#' + id)
-    x.append("g").call(l1)
+    x.append("g").attr("transform", "translate("+ padding_left +",0)").call(l1)
     // l1(select('#scatter').append("g"))
 
   }
@@ -147,65 +154,74 @@ onMount(() => {
   let l2 = annotation().type(annotationBadge).annotations(annotations).editMode(false)
 
   let x = select('#' + id)
-  x.append("g").call(l2)
+  x.append("g").attr("transform", "translate("+ padding_left +",0)").call(l2)
+
+  let axis = select('#' + id)
+  axis.append("g")
+    .attr("transform", "translate(" + padding_left +"," + (yScale(y_min)) + ")")
+    .call(axis_btm)
+
+  axis.append("g")
+    .attr("transform", "translate("+ padding_left +",0)")
+    .call(axis_left)
+
+
 
 });
 
 </script>
 
 <div>
-<svg width={width} height={height} id={id}>
+<svg width={width + padding_left} height={height + 20} id={id}>
     
-    <g id="scatter">
-    </g>
+    <g transform="translate({padding_left},0)">
+      <g id="scatter">
+      </g>
 
-    {#if admissible_line}
-      {#each [2.28] as eps}
-          <line x1="{eps*200 - yScale(-0.7)}"
-                y1="{yScale(-0.7)}"
-                x2="{eps*200 - yScale(y_endpoint+0.2)}"
-                y2="{yScale(y_endpoint+0.2)}"
-                style="stroke:rgb(0,0,0,0.4);
-                       stroke-width:1.5"/>
+      {#if admissible_line}
+        {#each [2.28] as eps}
+            <line x1="{eps*200 - yScale(-0.7)}"
+                  y1="{yScale(-0.7)}"
+                  x2="{eps*200 - yScale(y_endpoint+0.2)}"
+                  y2="{yScale(y_endpoint+0.2)}"
+                  style="stroke:rgb(0,0,0,0.4);
+                         stroke-width:1.5"/>
+        {/each}
+      {/if}
+
+      <rect width="{width-padding_left}" height="{height}" x="0" y="{0}" style="fill:rgb(0,0,0,0.03);" />
+
+
+
+      {#each range(eigs.length) as i}
+          <circle cx='{xScale(eigs[i][0])}' 
+                  cy='{yScale(eigs[i][1])}' 
+                  style="fill:{dot_color(eigs[i][0], eigs[i][1])}" 
+                  r='{2.7}' 
+                  val="{i}"/>
+          <circle cx='{xScale(eigs[i][0])}' 
+                  cy='{yScale(eigs[i][1])}' 
+                  style="fill:rgb(0,0,0,0)" 
+                  r='16' 
+                  val="{i}" 
+                  on:mouseover='{myPos}' 
+                  on:mouseout='{() => mouseover=-1}'/>
       {/each}
-    {/if}
 
-    <rect width="{width}" height="{height}" x="0" y="{0}" style="fill:rgb(0,0,0,0.03);" />
+      <line x1="{xScale(v_line)}"
+            y1="{0}"
+            x2="{xScale(v_line)}"
+            y2="{height}"
+            style="stroke:rgb(0,0,0,1.0);stroke-width:1.5"
+            marker-start="url(#arrow)"
+            stroke-dasharray="4 2" />  
 
-
-    <line x1="{0}" y1="{yScale(y_endpoint)}" x2="{width}" y2="{yScale(y_endpoint)}" style="stroke:rgb(0,0,0,0.2);stroke-width:1" marker-start="url(#arrow)"/>   
-
-    <line x1="{width}" y1="{0}" x2="{width}" y2="{height}" style="stroke:rgb(0,0,0,0.2);stroke-width:1" marker-start="url(#arrow)"/>  
-
-
-    {#each range(eigs.length) as i}
-        <circle cx='{xScale(eigs[i][0])}' 
-                cy='{yScale(eigs[i][1])}' 
-                style="fill:{dot_color(eigs[i][0], eigs[i][1])}" 
-                r='{2.7}' 
-                val="{i}"/>
-        <circle cx='{xScale(eigs[i][0])}' 
-                cy='{yScale(eigs[i][1])}' 
-                style="fill:rgb(0,0,0,0)" 
-                r='16' 
-                val="{i}" 
-                on:mouseover='{myPos}' 
-                on:mouseout='{() => mouseover=-1}'/>
-    {/each}
-
-    <line x1="{xScale(v_line)}"
-          y1="{0}"
-          x2="{xScale(v_line)}"
-          y2="{height}"
-          style="stroke:rgb(0,0,0,1.0);stroke-width:1.5"
-          marker-start="url(#arrow)"
-          stroke-dasharray="4 2" />  
-
-    <polyline points="{polyline()}" 
-              style="fill:none;
-                     stroke:{pareto_stroke};
-                     stroke-width:1.5" 
-              stroke-dasharray={pareto_dash}/> 
+      <polyline points="{polyline()}" 
+                style="fill:none;
+                       stroke:{pareto_stroke};
+                       stroke-width:1.5" 
+                stroke-dasharray={pareto_dash}/> 
+    </g>
 
 </svg>
 
