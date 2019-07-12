@@ -102,14 +102,14 @@
            style="position:absolute; 
                   top:0px;
                   width:200px;
+                  left:0px;
                   text-align: right;">
-        The feature’s robustness as measured by the ratio of the 
-        mismatch of the weight vector and the data distribution
+        Subject to an <d-math>L_2</d-math> adversery, observe that high frequency features are both less useful and less robust.
     </div>
 
-    <div class="grid-container" style="left:-30px">
-        <div class="small" style="text-align:center; font-weight: bold;">Useful</div>
-        <div class="small" style="text-align:center; font-weight: bold;">Non-Useful</div>
+    <div class="grid-container" style="left:-30px; top:80px">
+<!--         <div class="small" style="text-align:center; font-weight: bold;">Useful</div>
+        <div class="small" style="text-align:center; font-weight: bold;">Non-Useful</div> -->
 
         <Thumb i="2"   label="A" w="87" gridsize="27"/>
         <Thumb i="11"   label="B" w="87" gridsize="27"/>
@@ -149,12 +149,12 @@
     <div style="position:absolute; 
                 left: 575px; 
                 width: 170px;
-                top: {2*height/3 - 40}px">
-        <d-math>\log \mathbf{'{'}E{'}'}[yf(x)]</d-math>
+                top: {height/2 - 40}px">
+        <d-math>\log \sum_i \!y_if(x_i)</d-math>
         <p class="small" 
            style="position:relative; 
                   top:5px">
-            The feature's correlation with the positive label. 
+            Usefulness. Measured by the feature's empirical correlation with the positive label. 
         </p>
     </div>
 
@@ -168,10 +168,11 @@
         </div>
         <div class="small" 
                style="position:relative; 
-                      top:20px;
+                      top:27px;
                       left:135px;
                       width:220px">
-            The feature’s robustness as measured by the norm mismatch between the attacker and the data distribution.
+             Feature’s fragility (non-robustness). The norm in the numerator is the <d-math>L
+             _2</d-math> norm.
         </div>
     </div>  
 

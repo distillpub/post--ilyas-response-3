@@ -13,7 +13,7 @@
 
     <div style="position: absolute; left:-250px; width:{width}px"> 
         <div style="padding:5px">
-        <div style="font-size: 20px"><b>Ensembles</b></div>
+        <div style="font-size: 20px; padding-bottom: 10px"><b>Ensembles</b></div>
           <p>
             The work of Tsipras et al [2] suggests a collection of non-robust and non-useful features, if sufficiently uncorrelated, can be ensembled into a single useful, non-robust feature. 
           </p>
@@ -70,7 +70,7 @@
 
         <div style="padding:5px">
 	        <p>
-    				This process is illustrated above numerically. We choose a set of features non-robust features by excluding all features above a threshold, and ensemble them according to:
+    				This process is illustrated above numerically. We choose a set of features non-robust features by excluding all features above a threshold, and ensemble naviely them according to:
     			</p>
           <div style="position:relative; margin:auto; width:60%; top:-10px; height:40px">
     			<d-math block>
@@ -78,7 +78,7 @@
     			</d-math>
           </div>
           <p>
-            Note that the features constructed by ensembling is the closest to the author's intuition of what a non-robust feature is. 
+            We note that by choosing the optimal weights in which to combine these features, we can potentially even better.
           </p>
 
         </div>

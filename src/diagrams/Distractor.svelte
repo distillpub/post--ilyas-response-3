@@ -14,9 +14,9 @@
 
     <div style="position: absolute; left:200px;"> 
         <div style="padding:5px">
-        <div style="font-size: 20px"><b>Distractors</b></div>
+        <div style="font-size: 20px; padding-bottom: 10px"><b>Distractors</b></div>
           <p>
-            But now consider now an alternative construction. If we interpolate a robust, useful feature and a non-robust, useless feature, we obtain a non-robust feature. 
+            But now consider now an alternative construction. If we interpolate a robust useful feature and a non-robust useless feature, we obtain, surprisingly, a non-robust feature. 
           </p>
         </div>
 
