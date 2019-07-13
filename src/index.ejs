@@ -84,18 +84,18 @@
 
   <p>
 
-    Our search is simplified when we realize the following: non-robust features are not unique to the complex, nonlinear models encountered in deep learning. As Ilyas et al <d-cite key="ilyas2019adversarial"></d-cite> observes, they arise even in the humblest of models  &#8212; the linear one. Thus, we restrict our attention to linear features of the form:
+    Our search is simplified when we realize the following: non-robust features are not unique to the complex, nonlinear models encountered in deep learning. As Ilyas et al <d-cite key="ilyas2019adversarial"></d-cite> observe, they arise even in the humblest of models  &#8212; the linear one. Thus, we restrict our attention to linear features of the form:
 
   </p>
 
 <!--     The search for such a non-robust feature is considerabily simplified when we realize we the phenomenan of non-robust features are not unique to complex, non-linear models. Thus, we restrict our attention to linear features of the form -->
     <div class="eq-grid">
-      <d-math block>f(x) = \frac{a^Tx}{\|a\|_\Sigma}\qquad \text{where} \qquad \Sigma = \mathbf{E}[xx^T],
+      <d-math block>f(x) = \frac{a^Tx}{\|a\|_\Sigma}\qquad \text{where} \qquad \Sigma = \mathbf{E}[xx^T] \quad \text{and} \quad \mathbf{E}[x] = 0. 
       </d-math>
     </div>
 
   <p>
-    and assume $\mathbf{E}[x] = 0$. The robust usefulness of a linear feature admits an elegant decomposition: 
+    The robust usefulness of a linear feature admits an elegant decomposition 
     <d-footnote> This
      <d-math block> 
       \begin{aligned}
@@ -104,7 +104,7 @@
        & =\mathbf{E}\left[yf(x)+\frac{\inf_{\|\delta\|\leq\epsilon}a^{T}\delta}{\|a\|_{\Sigma}}\right]=\mathop{\mathbf{E}[yf(x)]}-\epsilon\frac{\|a\|_{*}}{\|a\|_{\Sigma}}
       \end{aligned}
     </d-math>
-    </d-footnote>
+    </d-footnote> into two terms:
 
   </p>
 
@@ -116,7 +116,7 @@
     }
   </style>
 
-  <div style="display:flex; flex-direction: column; padding: 0px 0px 0px 80px">
+  <div style="display:flex; flex-direction: column; padding: 0px 80px 0px 80px">
 
     <div style="display:flex;">
 
@@ -157,19 +157,19 @@
     <div style="display:flex; margin-bottom: 30px">  
 
       <div style="line-height: 16px; flex: 3;" class="small">
-        Where the robust usefulness of a feature $f$ can be written as a sum of two terms,
+        The robust usefulness of a feature
       </div>
 
       <div style="line-height: 16px; flex: 0.5"></div>
 
       <div style="line-height: 16px; flex: 2"  class="small">
-        with the first equal to the correlation of the feature with the label, 
+        the correlation of the feature with the label
       </div>
 
       <div style="line-height: 16px; flex: 0.5"></div>
 
       <div style="line-height: 16px; flex: 2" class="small">
-        and the second a penalty for the feature's non-robustness.
+        the feature's non-robustness
       </div>
 
     </div>
@@ -184,24 +184,17 @@
   </p>
 
   <figure>
-    <div id="what" style="position:relative; height:455px"></div>
+    <div style="position:relative; height:45px"></div>
+    <div id="what" style="position:relative; height:505px"></div>
   </figure>  
 
   <p>
-    The elusive non-robust useful features, however, seem conspicuously absent in the above plot. Fortunately, we can construct such features by strategically combining elements of this basis.
+    The elusive non-robust useful features, however, seem conspicuously absent in the above plot. Fortunately, we can construct such features by strategically combining elements of this basis. 
   </p>
 
   <p>
-    We demonstrate two constructions of non-robust features,
+    We demonstrate two constructions:
   </p>
-  <center>
-    <div class="eq-grid">
-    <d-math block>   f(x)=\frac{\sum v_{i}x}{\|\sum v_{i}x\|_{\Sigma}},
-    </d-math>
-    </div>
-  </center>
-  <p>
-    with $v_i$'s specified below.  <span style="visibility: hidden;"><d-cite key="tsipras2018robustness"></d-cite></span>
 
   </p>
 
@@ -211,21 +204,11 @@
       <div style="position: absolute; left:0px"id="distractor"></div>
     </div>
   </figure>  
-<!-- 
-  <p>
-    Note that the features constructed by ensembling is the closest to the author's intuition of what a non-robust feature is. The latter, however, reveals an flaw of such a definition of a non-robust feature. The definition  perclude the possibility of such cross contamination. 
-  </p> -->
 
   <p>
-    It is surprising, thus, that the experiments of Madry et al. <d-cite key="ilyas2019adversarial"></d-cite> <i>do</i> distinguish between the non-robust useful features generated from ensembles and distractors. A succinct definition of a robust feature that peels these two worlds apart is yet to exist, and remains an open problem for the machine learning community.
+    It is surprising, thus, that the experiments of Madry et al. <d-cite key="ilyas2019adversarial"></d-cite> (with deterministic perturbations) <i>do</i> distinguish between the non-robust useful features generated from ensembles and containments. A succinct definition of a robust feature that peels these two worlds apart is yet to exist, and remains an open problem for the machine learning community.
   </p>
 
-<!--     We note that, as $\alpha$ approaches 1, the curve follows a horizontal trajectory before curving sharply downwards. The construction reveals an asymmetry between robustness and usefulness. A small component of non-robustness may dramatically increase a feature's vulnerability to attack, but have a minimal impact on its usefulness. 
-  </p>
-  <p>
-    Here we see the. Indeed, the results of Ilyas et al. <d-cite key="ilyas2019adversarial"></d-cite> perclude the possibility of such cross-contamination. 
-  </p>
- -->
 </d-article>
 
 <d-appendix>

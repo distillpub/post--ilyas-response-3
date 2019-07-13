@@ -5,6 +5,8 @@ export let i;
 export let w;
 export let label = undefined;
 export let margin = "5px 15px 14px 15px"
+export let bordercolor = "white"
+import Marker from './Marker.svelte';
 </script>
 
 <style type="text/css">
@@ -17,19 +19,21 @@ export let margin = "5px 15px 14px 15px"
      style="position:relative;
      width:{w}px;
      height:{w}px;
-     border: 1px solid white; 
-     box-shadow: 2px 2px 3px rgba(0,0,0,0.2); 
-     border-radius: 3px;
+     border: 2px solid {bordercolor}; 
+     box-shadow: 2px 2px 3px rgba(0,0,0,0.3); 
+     border-radius: 4px;
      margin:{margin}">
     {#if (label !== undefined)}
-	    <div style="position: absolute; left:-15px; top: 2px">{label}</div>
+	    <div style="position: absolute; left:-24px; top: -2px">
+            <Marker letter={label} color="rgb(178,24,43)"/>
+        </div>
 	{/if}
     <div 
     style="background-image:url('https://storage.googleapis.com/clarity-public/madry_response/what/{filename}'); 
             background-position:{-w*(i % gridsize)}px {-w*Math.floor(i/gridsize)}px;
             width: {w}px;
             height:{w}px;
-            border-radius: 3px;
+            border-radius: 0px;
             background-size: {gridsize*w}px;">
     </div>
 </div>

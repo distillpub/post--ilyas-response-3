@@ -12,11 +12,11 @@
 
 <div style="width:{width}px; height:{height+290}px; left:160px; position:relative;">
 
-    <div style="position: absolute; left:-250px; width:{width}px; border-top: 1px solid black; "> 
+    <div style="position: absolute; left:-250px; width:{width}px; "> 
         <div style="padding:5px">
-        <div style="font-size: 20px; padding-bottom: 10px"><b>Ensembles</b></div>
-          <p>
-            The work of Tsipras et al <d-cite key="tsipras2018robustness"></d-cite> suggests a collection of non-robust and non-useful features, if sufficiently uncorrelated, can be ensembled into a single useful, non-robust feature <Marker letter="f"/>. 
+        <div style="font-size: 20px; padding-bottom: 10px; border-bottom: 1px solid black;"><b>Ensembles</b></div>
+          <p  style="padding-top:10px">
+            The work of Tsipras et al <d-cite key="tsipras2018robustness"></d-cite> suggests a collection of non-robust and non-useful features, if sufficiently uncorrelated, can be ensembled into a single useful, non-robust useful feature <Marker letter="f"/>. 
           </p>
         </div>
 
@@ -27,45 +27,46 @@
                 width={width} 
                 height={height}
                 id="ensemble_scatter"
-                color={(x,y) => {return x > -9.11503019 ? [236,236,236] : [192,136,133] } }
+                color={(x,y) => {return x > -9.11503019 ? [236,236,236] : [60,60,60] } }
                 y_max="-0.6"
                 tooltip="{false}"
                 v_line="-9.11503019"
                 extra_point="{[-10.00926143, -1.5710188]}"
                 />
 
-          <div style="position:absolute; top: 105px; left:10px">
+          <div style="position:absolute; top: 105px; left:65px">
 
-      			<svg width="160px" height="222px" viewBox="0 0 160 222" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-      			    <defs>
-      			        <linearGradient x1="50%" y1="-3.19488818%" x2="50%" y2="100%" id="linearGradient-1">
-      			            <stop stop-color="#C4C4C4" offset="0%"></stop>
-      			            <stop stop-color="#C4C4C4" stop-opacity="0" offset="100%"></stop>
-      			        </linearGradient>
-      			    </defs>
-      			    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-      			        <g id="Vector-Copy" transform="translate(79.799063, 111.547877) scale(-1, 1) translate(-79.799063, -111.547877) translate(-1.200937, 0.047877)" fill="url(#linearGradient-1)">
-      			            <path d="M28.7009373,20.4521226 C-18.8858614,138.413855 6.61261446,186.952123 17.2009373,222.084168 L161.340839,222.084168 C55.2877361,146.452123 -0.12747797,144.913855 37.2009373,23.4521226 L48.2009373,27.4521226 L41.7009373,0.45212261 L17.7009373,17.4521226 L28.7009373,20.4521226 Z" id="Path"></path>
-      			        </g>
-      			    </g>
-      			</svg>
+			<svg width="285" height="190" viewBox="0 0 285 190" fill="none" xmlns="http://www.w3.org/2000/svg">
+			<path opacity="0.2" d="M34.0907 16.3006C20.505 33.955 -15.1762 87.953 8.53943 189.921L134.407 181.595C85.8132 150.01 11.1648 61.9076 40.6705 21.6928L45.3849 15.0116L52.0003 19.5101L49.9495 1.18537L32.981 6.577L38.7695 10.5131L34.0907 16.3006Z" fill="url(#paint0_linear)"/>
+			<defs>
+			<linearGradient id="paint0_linear" x1="44" y1="13" x2="24" y2="120" gradientUnits="userSpaceOnUse">
+			<stop/>
+			<stop offset="1" stop-opacity="0"/>
+			</linearGradient>
+			</defs>
+			</svg>
+
 
           </div>
 
-          <div style="position:absolute; left:165px; top:315px; font-size: 12px; line-height: 12px; width:120px; color:grey">
-          We exclude all features to the left of a threshold
+          <div style="position:absolute; left:170px; top:315px; font-size: 12px; line-height: 15px; width:160px; color:grey">
+          We ensemble all features below a certain threshold of robustness.
           </div>
 
-          <div style="position:absolute; left:70px; top:10px">
-              <Thumb i="0" w="54" gridsize="1" filename="ensemble.png"/>
+          <div style="position:absolute; left:82px; top:5px">
+              <Thumb i="0" w="54" gridsize="1" filename="ensemble.png" bordercolor="rgb(178,24,43)"/>
           </div>
 
-          <div style="position:absolute; left:20px; top:250px">
-              <Thumb i="501" w="44" gridsize="27"/>
+          <div style="position:absolute; left:20px; top:260px">
+              <Thumb i="501" w="44" gridsize="27" bordercolor="rgb(89,89,89)"/>
           </div>
 
-          <div style="position:absolute; left:90px; top:300px">
-              <Thumb i="562" w="44" gridsize="27"/>
+          <div style="position:absolute; left:55px; top:275px">
+              <Thumb i="552" w="44" gridsize="27"  bordercolor="rgb(89,89,89)"/>
+          </div>
+
+          <div style="position:absolute; left:90px; top:290px">
+              <Thumb i="562" w="44" gridsize="27"  bordercolor="rgb(89,89,89)"/>
           </div>
 
         </div>
@@ -78,13 +79,13 @@
           			  margin:auto;
           			  width:60%;
           			  top:-10px;
-          			  height:40px">
+          			  height:50px">
     			<d-math block>
-    				{"v_{i}=\\text{sign}(\\mathbf{E}[y_{i}a_{i}^{T}x])a_{i}^{T}"}
+    				{"\\sum_i \\text{sign}(\\mathbf{E}[y_{i}a_{i}^{T}x])a_{i}^{T}"}
     			</d-math>
           </div>
           <p>
-          	This construction is closest in spirit to the author's idea of what a non-robust feature looks like.
+          	and normalizing. This construction is closest in spirit to the author's idea of what a non-robust feature looks like.
           </p>
 
         </div>

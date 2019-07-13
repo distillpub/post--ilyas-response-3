@@ -23,7 +23,7 @@ export let width;
 export let height;
 export let admissible_line = false;
 export let id;
-export let color = () => [227,74,51]
+export let color = () => [216,135,122]
 export let x_min = 2.8
 export let x_max = 12.8
 export let y_min = -4.6
@@ -31,6 +31,7 @@ export let y_max = 0.1
 export let tooltip = true
 export let pareto_stroke = "rgb(100,100,100,0.5)"
 export let pareto_dash = "4 4"
+export let badgeColor = "rgb(178,24,43, 1.0)"
 
 let padding_left = 20
 
@@ -131,7 +132,7 @@ onMount(() => {
       note: { label: "Hi"},
       x: xScale(eigs[ps[i]][0]), y: yScale(eigs[ps[i]][1]),
       dy: 137, dx: 162,
-      color:"rgb(192,136,133, 1.0)",
+      color:badgeColor,
       subject: {
         text: letters[i],
         radius: 12,
