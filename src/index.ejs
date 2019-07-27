@@ -1,48 +1,49 @@
 <!doctype html>
 
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <script src="https://distill.pub/template.v2.js"></script>
-  <style><%= require("raw-loader!../static/style.css") %></style>
-  <style>
-  .eq-grid {
-    padding: 0px;
-    padding-left: 0px;
-    display: grid;
-    justify-content: center;
-    align-items: center;
-    grid-row-gap: 0px;
-    margin-top: 0px;
-    margin-bottom: 10px;
-    margin-top: -10px;
-  }
-
-  .option {
-    font-size: 16px;
-  }
-
-  .small {
-    font-size: 12px;
-    color: grey;
-  }
-
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://distill.pub/template.v2.js"></script>
+    <style>
+        <%=require("raw-loader!../static/style.css") %>
     </style>
-  
+    <style>
+        .eq-grid {
+            padding: 0px;
+            padding-left: 0px;
+            display: grid;
+            justify-content: center;
+            align-items: center;
+            grid-row-gap: 0px;
+            margin-top: 0px;
+            margin-bottom: 10px;
+            margin-top: -10px;
+        }
+
+        .option {
+            font-size: 16px;
+        }
+
+        .small {
+            font-size: 12px;
+            color: grey;
+        }
+    </style>
+
 </head>
 
 <body>
 
-<d-front-matter>
-  <script type="text/json">{
+    <d-front-matter>
+        <script type="text/json">{
   "title": "Two Examples of Useful, Non-Robust Features",
   "description": "An example project using webpack and svelte-loader and ejs to inline SVGs",
   "authors": [
     {
-      "author": "",
-      "authorURL": "",
-      "affiliation": "",
-      "affiliationURL": ""
+      "author": "Gabriel Goh",
+      "authorURL": "https://gabgoh.github.io",
+      "affiliation": "OpenAI",
+      "affiliationURL": "https://openai.com"
     }
   ],
   "katex": {
@@ -60,178 +61,199 @@
     ]
   }
   }</script>
-</d-front-matter>
+    </d-front-matter>
 
-<d-title></d-title>
+    <d-title></d-title>
 
-<d-article>
+    <d-article>
 
-  <p>
-    Ilyas et al. <d-cite key="ilyas2019adversarial"></d-cite> define a <i>feature</i> as a function $f$ that takes $x$ from the <i>data distribution</i> $(x,y) \sim \mathcal{D}$ into a real number, restricted to have mean zero and unit variance. A feature is said to be <i>useful</i> if it has high correlation with the label. But in the presence of an adversary Ilyas et al. <d-cite key="ilyas2019adversarial"></d-cite> argues the metric that truly matters is a feature's <i>robust usefulness</i>,
-  </p>
+        <p>
+            Ilyas et al. <d-cite key="ilyas2019adversarial"></d-cite> define a <i>feature</i> as a function $f$ that
+            takes $x$ from the <i>data distribution</i> $(x,y) \sim \mathcal{D}$ into a real number, restricted to have
+            mean zero and unit variance. A feature is said to be <i>useful</i> if it has high correlation with the
+            label. But in the presence of an adversary Ilyas et al. <d-cite key="ilyas2019adversarial"></d-cite> argues
+            the metric that truly matters is a feature's <i>robust usefulness</i>,
+        </p>
 
-  <div class="eq-grid">
-    <d-math block>
-      \mathbf{E}\left[\inf_{\|\delta\|\leq\epsilon}yf(x+\delta)\right],
-    </d-math>
-  </div>
+        <div class="eq-grid">
+            <d-math block>
+                \mathbf{E}\left[\inf_{\|\delta\|\leq\epsilon}yf(x+\delta)\right],
+            </d-math>
+        </div>
 
-  <p>
-    its correlation with the label while under attack. Ilyas et al. <d-cite key="ilyas2019adversarial"></d-cite> suggests that in addition to the pedestrian, robust features we know and love (such as the color of the sky), our models may also be taking advantage of useful, non-robust features, some of which may even lie beyond the threshold of human intuition. This begs the question: what might such non-robust features look like? 
-  </p>
+        <p>
+            its correlation with the label while under attack. Ilyas et al. <d-cite key="ilyas2019adversarial"></d-cite>
+            suggests that in addition to the pedestrian, robust features we know and love (such as the color of the
+            sky), our models may also be taking advantage of useful, non-robust features, some of which may even lie
+            beyond the threshold of human intuition. This begs the question: what might such non-robust features look
+            like?
+        </p>
 
-  <h3>Non-Robust Features in Linear Models</h3>
+        <h3>Non-Robust Features in Linear Models</h3>
 
-  <p>
+        <p>
 
-    Our search is simplified when we realize the following: non-robust features are not unique to the complex, nonlinear models encountered in deep learning. As Ilyas et al <d-cite key="ilyas2019adversarial"></d-cite> observe, they arise even in the humblest of models  &#8212; the linear one. Thus, we restrict our attention to linear features of the form:
+            Our search is simplified when we realize the following: non-robust features are not unique to the complex,
+            nonlinear models encountered in deep learning. As Ilyas et al <d-cite key="ilyas2019adversarial"></d-cite>
+            observe, they arise even in the humblest of models &#8212; the linear one. Thus, we restrict our attention
+            to linear features of the form:
 
-  </p>
+        </p>
 
-<!--     The search for such a non-robust feature is considerabily simplified when we realize we the phenomenan of non-robust features are not unique to complex, non-linear models. Thus, we restrict our attention to linear features of the form -->
-    <div class="eq-grid">
-      <d-math block>f(x) = \frac{a^Tx}{\|a\|_\Sigma}\qquad \text{where} \qquad \Sigma = \mathbf{E}[xx^T] \quad \text{and} \quad \mathbf{E}[x] = 0. 
-      </d-math>
-    </div>
+        <!--     The search for such a non-robust feature is considerabily simplified when we realize we the phenomenan of non-robust features are not unique to complex, non-linear models. Thus, we restrict our attention to linear features of the form -->
+        <div class="eq-grid">
+            <d-math block>f(x) = \frac{a^Tx}{\|a\|_\Sigma}\qquad \text{where} \qquad \Sigma = \mathbf{E}[xx^T] \quad
+                \text{and} \quad \mathbf{E}[x] = 0.
+            </d-math>
+        </div>
 
-  <p>
-    The robust usefulness of a linear feature admits an elegant decomposition 
-    <d-footnote> This
-     <d-math block> 
-      \begin{aligned}
-      \mathbf{E}\left[\inf_{\|\delta\|\leq\epsilon}yf(x+\delta)\right] & =\mathbf{E}\left[yf(x)+\inf_{\|\delta\|\leq\epsilon}yf(\delta)\right]\\
-       & =\mathbf{E}\left[yf(x)+\inf_{\|\delta\|\leq\epsilon}y\frac{a^{T}\delta}{\|a\|_{\Sigma}}\right]\\
-       & =\mathbf{E}\left[yf(x)+\frac{\inf_{\|\delta\|\leq\epsilon}a^{T}\delta}{\|a\|_{\Sigma}}\right]=\mathop{\mathbf{E}[yf(x)]}-\epsilon\frac{\|a\|_{*}}{\|a\|_{\Sigma}}
-      \end{aligned}
-    </d-math>
-    </d-footnote> into two terms:
+        <p>
+            The robust usefulness of a linear feature admits an elegant decomposition
+            <d-footnote> This
+                <d-math block>
+                    \begin{aligned}
+                    \mathbf{E}\left[\inf_{\|\delta\|\leq\epsilon}yf(x+\delta)\right] &
+                    =\mathbf{E}\left[yf(x)+\inf_{\|\delta\|\leq\epsilon}yf(\delta)\right]\\
+                    & =\mathbf{E}\left[yf(x)+\inf_{\|\delta\|\leq\epsilon}y\frac{a^{T}\delta}{\|a\|_{\Sigma}}\right]\\
+                    &
+                    =\mathbf{E}\left[yf(x)+\frac{\inf_{\|\delta\|\leq\epsilon}a^{T}\delta}{\|a\|_{\Sigma}}\right]=\mathop{\mathbf{E}[yf(x)]}-\epsilon\frac{\|a\|_{*}}{\|a\|_{\Sigma}}
+                    \end{aligned}
+                </d-math>
+            </d-footnote> into two terms:
 
-  </p>
+        </p>
 
-  <style>
-    .undomargin {
-      position:relative; 
-      left:-1em;
-      top:0.2em;
-    }
-  </style>
+        <style>
+            .undomargin {
+                position: relative;
+                left: -1em;
+                top: 0.2em;
+            }
+        </style>
+        <!-- TODO: rework as CSS grid so smaller screens work, too -->
+        <div style="display:flex; flex-direction: column; padding: 0px 80px 0px 80px">
 
-  <div style="display:flex; flex-direction: column; padding: 0px 80px 0px 80px">
+            <div style="display:flex;">
 
-    <div style="display:flex;">
+                <div style="margin: auto 0; flex: 3">
+                    <span class="undomargin">
+                        <d-math block>
+                            \mathbf{E}\left[\inf_{\|\delta\|\leq\epsilon}yf(x+\delta)\right]
+                        </d-math>
+                    </span>
+                </div>
 
-      <div style="margin: auto 0; flex: 3">
-        <span class="undomargin">
-        <d-math block>
-          \mathbf{E}\left[\inf_{\|\delta\|\leq\epsilon}yf(x+\delta)\right]
-        </d-math>
-        </span>
-      </div>
+                <div style="margin: auto 0; flex: 0.5">
+                    <span class="undomargin">
+                        <d-math block>=</d-math>
+                    </span>
+                </div>
 
-      <div style="margin: auto 0; flex: 0.5">
-        <span class="undomargin">
-          <d-math block>=</d-math>
-        </span>
-      </div>
+                <div style="margin: auto 0; flex: 2">
+                    <span class="undomargin">
+                        <d-math block>\mathop{\mathbf{E}[yf(x)]}</d-math>
+                    </span>
+                </div>
 
-      <div style="margin: auto 0; flex: 2">
-        <span class="undomargin">
-        <d-math  block>\mathop{\mathbf{E}[yf(x)]}</d-math>
-        </span>
-      </div>
+                <div style="margin: auto 0; flex: 0.5">
+                    <span class="undomargin">
+                        <d-math block>-</d-math>
+                    </span>
+                </div>
 
-      <div style="margin: auto 0; flex: 0.5">
-        <span class="undomargin">
-        <d-math  block>-</d-math>
-        </span>
-      </div>
+                <div style="margin: auto 0; flex: 2">
+                    <span class="undomargin">
+                        <d-math block>\epsilon\frac{\|a\|_{*}}{\|a\|_{\Sigma}}</d-math>
+                    </span>
+                </div>
 
-      <div style="margin: auto 0; flex: 2">
-        <span class="undomargin">
-        <d-math block>\epsilon\frac{\|a\|_{*}}{\|a\|_{\Sigma}}</d-math>
-        </span>
-      </div>
-    
-    </div>
+            </div>
 
-    <div style="display:flex; margin-bottom: 30px">  
+            <div style="display:flex; margin-bottom: 30px">
 
-      <div style="line-height: 16px; flex: 3;" class="small">
-        The robust usefulness of a feature
-      </div>
+                <div style="line-height: 16px; flex: 3;" class="small">
+                    The robust usefulness of a feature
+                </div>
 
-      <div style="line-height: 16px; flex: 0.5"></div>
+                <div style="line-height: 16px; flex: 0.5"></div>
 
-      <div style="line-height: 16px; flex: 2"  class="small">
-        the correlation of the feature with the label
-      </div>
+                <div style="line-height: 16px; flex: 2" class="small">
+                    the correlation of the feature with the label
+                </div>
 
-      <div style="line-height: 16px; flex: 0.5"></div>
+                <div style="line-height: 16px; flex: 0.5"></div>
 
-      <div style="line-height: 16px; flex: 2" class="small">
-        the feature's non-robustness
-      </div>
+                <div style="line-height: 16px; flex: 2" class="small">
+                    the feature's non-robustness
+                </div>
 
-    </div>
-  </div>
+            </div>
+        </div>
 
-  <p>
-    In the above equation $\|\cdot\|_*$ deontes the dual norm of $\|\cdot\|$. 
-    This decomposition gives us an instrument for visualizing any set of linear features $a_i$ in a two dimensional plot.
-  </p>
-  <o>
-    Plotted below is the binary classification task of separating <i>truck</i> and <i>frog</i> in CIFAR-10 on the set of features $a_i$ corresponding to the $i^{th}$ singular vector of the data.
-  </p>
+        <p>
+            In the above equation $\|\cdot\|_*$ deontes the dual norm of $\|\cdot\|$.
+            This decomposition gives us an instrument for visualizing any set of linear features $a_i$ in a two
+            dimensional plot.
+        </p>
+        <o>
+            Plotted below is the binary classification task of separating <i>truck</i> and <i>frog</i> in CIFAR-10 on
+            the set of features $a_i$ corresponding to the $i^{th}$ singular vector of the data.
+            </p>
 
-  <figure>
-    <div style="position:relative; height:45px"></div>
-    <div id="what" style="position:relative; height:505px"></div>
-  </figure>  
+            <figure>
+                <div style="position:relative; height:45px"></div>
+                <div id="what" style="position:relative; height:505px"></div>
+            </figure>
 
-  <p>
-    The elusive non-robust useful features, however, seem conspicuously absent in the above plot. Fortunately, we can construct such features by strategically combining elements of this basis. 
-  </p>
+            <p>
+                The elusive non-robust useful features, however, seem conspicuously absent in the above plot.
+                Fortunately, we can construct such features by strategically combining elements of this basis.
+            </p>
 
-  <p>
-    We demonstrate two constructions:
-  </p>
+            <p>
+                We demonstrate two constructions:
+            </p>
 
-  </p>
+            </p>
 
-  <figure>
-    <div style="position: relative; width:100px; height:840px">
-      <div style="position: absolute; left:0px" id="ensemble"></div>
-      <div style="position: absolute; left:0px"id="distractor"></div>
-    </div>
-  </figure>  
+            <figure>
+                <div style="position: relative; width:100px; height:840px">
+                    <div style="position: absolute; left:0px" id="ensemble"></div>
+                    <div style="position: absolute; left:0px" id="distractor"></div>
+                </div>
+            </figure>
 
-  <p>
-    It is surprising, thus, that the experiments of Madry et al. <d-cite key="ilyas2019adversarial"></d-cite> (with deterministic perturbations) <i>do</i> distinguish between the non-robust useful features generated from ensembles and containments. A succinct definition of a robust feature that peels these two worlds apart is yet to exist, and remains an open problem for the machine learning community.
-  </p>
+            <p>
+                It is surprising, thus, that the experiments of Madry et al. <d-cite key="ilyas2019adversarial">
+                </d-cite> (with deterministic perturbations) <i>do</i> distinguish between the non-robust useful
+                features generated from ensembles and containments. A succinct definition of a robust feature that peels
+                these two worlds apart is yet to exist, and remains an open problem for the machine learning community.
+            </p>
 
-</d-article>
+    </d-article>
 
-<d-appendix>
-  <h3>Acknowledgments</h3>
-  <p>
-    Shan Carter (design overhaul), Preetum (technical discussion), Chris Olah (technical discussion), Ludwig (overall feedback), Ria (feedback) Aditiya (feedback)
-  </p>
+    <d-appendix>
+        <h3>Acknowledgments</h3>
+        <p>
+            Shan Carter (design overhaul), Preetum (technical discussion), Chris Olah (technical discussion), Ludwig
+            (overall feedback), Ria (feedback) Aditiya (feedback)
+        </p>
 
-  <h3>Author Contributions</h3>
-  <p>
-    <b>Research:</b> Alex developed ...
-  </p>
+        <h3>Author Contributions</h3>
+        <p>
+            <b>Research:</b> Alex developed ...
+        </p>
 
-  <p>
-    <b>Writing & Diagrams:</b> The text was initially drafted by...
-  </p>
+        <p>
+            <b>Writing & Diagrams:</b> The text was initially drafted by...
+        </p>
 
 
-  <d-footnote-list></d-footnote-list>
-  <d-citation-list></d-citation-list>
-</d-appendix>
+        <d-footnote-list></d-footnote-list>
+        <d-citation-list></d-citation-list>
+    </d-appendix>
 
-<!-- bibliography will be inlined during Distill pipeline's pre-rendering -->
-<d-bibliography src="bibliography.bib"></d-bibliography>
+    <!-- bibliography will be inlined during Distill pipeline's pre-rendering -->
+    <d-bibliography src="bibliography.bib"></d-bibliography>
 
 </body>
