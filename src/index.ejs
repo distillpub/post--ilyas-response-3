@@ -67,6 +67,16 @@
 
     <d-article>
 
+        <section id="response-info"><em>
+                This article is part of a collection of responses to Ilyas et al. <d-cite key="ilyas2019adversarial">
+                </d-cite> paper "Adversarial
+                examples are not bugs, they are features". You can learn more about this process in this editorial
+                explanation. The author's rebuttal to this response is reproduced in context at the end of this article.
+                If
+                you want
+                to cite the rebuttal, please cite the linked collection of response rebuttals.</em>
+        </section>
+
         <p>
             Ilyas et al. <d-cite key="ilyas2019adversarial"></d-cite> define a <i>feature</i> as a function $f$ that
             takes $x$ from the <i>data distribution</i> $(x,y) \sim \mathcal{D}$ into a real number, restricted to have
@@ -229,6 +239,46 @@
                 features generated from ensembles and containments. A succinct definition of a robust feature that peels
                 these two worlds apart is yet to exist, and remains an open problem for the machine learning community.
             </p>
+
+            <section id="rebuttal">
+                <div class="rebuttal-info">The original paper's authors' rebuttal is shown here in context. If you want
+                    to cite this rebuttal, please cite the linked collection of response rebuttals.</div>
+                <p><b>Response Summary</b>: The construction of explicit non-robust features is
+                    very interesting and makes progress towards the challenge of visualizing some of
+                    the useful non-robust features detected by our experiments. We also agree that
+                    non-robust features arising as “distractors” is indeed not precluded by our
+                    theoretical framework, even if it is precluded by our experiments. Though for
+                    our purposes this simple theoretical framework sufficed for reasoning about
+                    experiments<d-footnote>We also presented a theoretical setting where we can
+                        analyze things fully rigorously in Section 4 of our paper.</d-footnote>, this comment
+                    identifies finding a more comprehensive definition of feature as an interesting
+                    future research direction. </p>
+
+                <p><b>Response</b>: These experiments (visualizing the robustness and
+                    usefulness of different linear features) are very interesting! They both further
+                    corroborate the existence of useful, non-robust features and make progress
+                    towards visualizing what these non-robust features actually look like. </p>
+
+                <p>We also appreciate the point made by the provided construction of non-robust
+                    features (as defined in our theoretical framework) that are combinations of
+                    useful+robust and useless+non-robust features. Our theoretical framework indeed
+                    enables such a scenario, even if&mdash;as the commenter already notes&mdash;our
+                    experimental results do not. (In this sense, the experimental results and our <a href="#takeaway1">
+                        main takeaway </a> are actually stronger than our theoretical
+                    framework technically captures.) Specifically, in such a scenario, during the
+                    construction of the $\widehat{\mathcal{D}}_{det}$ dataset, only the non-robust
+                    and useless term of the feature would be flipped. Thus, a classifier trained on
+                    such a dataset would associate the predictive robust feature with the
+                    <em>wrong</em> label and would thus not generalize on the test set (in contrast,
+                    our experiments show that classifiers trained on $\widehat{\mathcal{D}}_{det}$
+                    do generalize).</p>
+
+                <p>Overall, our focus while developing our theoretical framework was on
+                    enabling us to formally describe and predict the outcomes of our experiments. As
+                    the comment points out, putting forth a theoretical framework that captures
+                    non-robust features in a very precise way is an interesting future research
+                    direction in itself. </p>
+            </section>
 
     </d-article>
 
