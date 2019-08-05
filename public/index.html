@@ -47,28 +47,26 @@ d-figure > figure {
 	left: -48px;
 }
 
-/* #rebuttal::before {
-	content: "Author Rebuttal";
-	background-color: green;
-} */
-
 #rebuttal,
-#response-info {
+.response-info {
 	margin: 1em 0;
-	background-color: hsl(128, 50%, 97%);
-	border-left: solid hsl(129, 50%, 25%) 3px;
+	background-color: hsl(228, 50%, 97%);
+	border-left: solid hsl(229, 50%, 25%) 3px;
 	padding: 1em;
-	/* border-radius: 0.25em; */
 }
 
-#rebuttal .rebuttal-info {
+#rebuttal,
+.rebuttal-info {
 	color: hsl(129, 50%, 15%);
-	font-style: italic;
-	/* background-color: hsl(128, 50%, 90%); */
-	/* border: 1px solid hsl(128, 25%, 85%); */
-	/* padding: 0.5em; */
+	background-color: hsl(128, 50%, 97%);
+	border-left: solid hsl(128, 50%, 25%) 3px;
 	margin-bottom: 0.5em;
-	/* border-radius: 0.25em; */
+}
+
+#rebuttal figure {
+	background: white;
+	padding: 1em;
+	border-radius: 1em;
 }
 
     </style>
@@ -132,14 +130,11 @@ d-figure > figure {
 
     <d-article>
 
-        <section id="response-info"><em>
-                This article is part of a collection of responses to Ilyas et al. <d-cite key="ilyas2019adversarial">
-                </d-cite> paper "Adversarial
-                examples are not bugs, they are features". You can learn more about this process in this editorial
-                explanation. The author's rebuttal to this response is reproduced in context at the end of this article.
-                If
-                you want
-                to cite the rebuttal, please cite the linked collection of response rebuttals.</em>
+        <section class="response-info">
+            This article is part of a discussion of Ilyas et al. <d-cite key="ilyas2019adversarial">
+            </d-cite> paper <em>"Adversarial
+                examples are not bugs, they are features"</em>. You can learn more in the main <a
+                href="/2019/advex-bugs-responses/">discussion article</a>.</em>
         </section>
 
         <p>
@@ -305,19 +300,24 @@ d-figure > figure {
                 these two worlds apart is yet to exist, and remains an open problem for the machine learning community.
             </p>
 
+            <div class="response-info">
+                Ilyas, et. al.'s rebuttal is shown here in context. To cite this rebuttal, please cite their <a
+                    href="/2019/advex-bugs-responses/rebuttal/#citation">collection of response rebuttals</a>.
+            </div>
+
             <section id="rebuttal">
-                <div class="rebuttal-info">The original paper's authors' rebuttal is shown here in context. If you want
-                    to cite this rebuttal, please cite the linked collection of response rebuttals.</div>
                 <p><b>Response Summary</b>: The construction of explicit non-robust features is
                     very interesting and makes progress towards the challenge of visualizing some of
                     the useful non-robust features detected by our experiments. We also agree that
                     non-robust features arising as “distractors” is indeed not precluded by our
-                    theoretical framework, even if it is precluded by our experiments. Though for
-                    our purposes this simple theoretical framework sufficed for reasoning about
-                    experiments<d-footnote>We also presented a theoretical setting where we can
-                        analyze things fully rigorously in Section 4 of our paper.</d-footnote>, this comment
-                    identifies finding a more comprehensive definition of feature as an interesting
-                    future research direction. </p>
+                    theoretical framework, even if it is precluded by our experiments.
+                    This simple theoretical framework sufficed for reasoning about and
+                    predicting the outcomes of our experiments
+                    <d-footnote>We also presented a theoretical setting where we can
+                        analyze things fully rigorously in Section 4 of our paper.</d-footnote>.
+                    However, this comment rightly identifies finding a more comprehensive
+                    definition of feature as an important future research direction.
+                </p>
 
                 <p><b>Response</b>: These experiments (visualizing the robustness and
                     usefulness of different linear features) are very interesting! They both further
@@ -328,21 +328,26 @@ d-figure > figure {
                     features (as defined in our theoretical framework) that are combinations of
                     useful+robust and useless+non-robust features. Our theoretical framework indeed
                     enables such a scenario, even if&mdash;as the commenter already notes&mdash;our
-                    experimental results do not. (In this sense, the experimental results and our <a href="#takeaway1">
+                    experimental results do not. (In this sense, the experimental results and our <a href="/2019/advex-bugs-responses/rebuttal/#takeaway1">
                         main takeaway </a> are actually stronger than our theoretical
                     framework technically captures.) Specifically, in such a scenario, during the
                     construction of the $\widehat{\mathcal{D}}_{det}$ dataset, only the non-robust
                     and useless term of the feature would be flipped. Thus, a classifier trained on
                     such a dataset would associate the predictive robust feature with the
-                    <em>wrong</em> label and would thus not generalize on the test set (in contrast,
+                    <i>wrong</i> label and would thus not generalize on the test set. In contrast,
                     our experiments show that classifiers trained on $\widehat{\mathcal{D}}_{det}$
-                    do generalize).</p>
+                    do generalize.</p>
 
                 <p>Overall, our focus while developing our theoretical framework was on
                     enabling us to formally describe and predict the outcomes of our experiments. As
                     the comment points out, putting forth a theoretical framework that captures
-                    non-robust features in a very precise way is an interesting future research
+                    non-robust features in a very precise way is an important future research
                     direction in itself. </p>
+            </section>
+
+            <section class="response-info">
+                You can find more responses in the main <a href="/2019/advex-bugs-responses/">discussion
+                    article</a>.</em>
             </section>
 
     </d-article>

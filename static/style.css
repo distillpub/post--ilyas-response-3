@@ -40,26 +40,24 @@ d-figure > figure {
 	left: -48px;
 }
 
-/* #rebuttal::before {
-	content: "Author Rebuttal";
-	background-color: green;
-} */
-
 #rebuttal,
-#response-info {
+.response-info {
 	margin: 1em 0;
-	background-color: hsl(128, 50%, 97%);
-	border-left: solid hsl(129, 50%, 25%) 3px;
+	background-color: hsl(228, 50%, 97%);
+	border-left: solid hsl(229, 50%, 25%) 3px;
 	padding: 1em;
-	/* border-radius: 0.25em; */
 }
 
-#rebuttal .rebuttal-info {
+#rebuttal,
+.rebuttal-info {
 	color: hsl(129, 50%, 15%);
-	font-style: italic;
-	/* background-color: hsl(128, 50%, 90%); */
-	/* border: 1px solid hsl(128, 25%, 85%); */
-	/* padding: 0.5em; */
+	background-color: hsl(128, 50%, 97%);
+	border-left: solid hsl(128, 50%, 25%) 3px;
 	margin-bottom: 0.5em;
-	/* border-radius: 0.25em; */
+}
+
+#rebuttal figure {
+	background: white;
+	padding: 1em;
+	border-radius: 1em;
 }
