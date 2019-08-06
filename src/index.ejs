@@ -232,10 +232,7 @@
                 these two worlds apart is yet to exist, and remains an open problem for the machine learning community.
             </p>
 
-            <div class="response-info">
-                Ilyas, et. al.'s rebuttal is shown here in context. To cite this rebuttal, please cite their <a
-                    href="/2019/advex-bugs-responses/rebuttal/#citation">collection of response rebuttals</a>.
-            </div>
+            <%= require("raw-loader!../../shared/comment-header-info.htmlt") %>
 
             <section id="rebuttal">
                 <p><b>Response Summary</b>: The construction of explicit non-robust features is
@@ -260,7 +257,8 @@
                     features (as defined in our theoretical framework) that are combinations of
                     useful+robust and useless+non-robust features. Our theoretical framework indeed
                     enables such a scenario, even if&mdash;as the commenter already notes&mdash;our
-                    experimental results do not. (In this sense, the experimental results and our <a href="/2019/advex-bugs-responses/rebuttal/#takeaway1">
+                    experimental results do not. (In this sense, the experimental results and our <a
+                        href="/2019/advex-bugs-discussion/rebuttal/#takeaway1">
                         main takeaway </a> are actually stronger than our theoretical
                     framework technically captures.) Specifically, in such a scenario, during the
                     construction of the $\widehat{\mathcal{D}}_{det}$ dataset, only the non-robust
@@ -277,10 +275,7 @@
                     direction in itself. </p>
             </section>
 
-            <section class="response-info">
-                You can find more responses in the main <a href="/2019/advex-bugs-responses/">discussion
-                    article</a>.</em>
-            </section>
+            <%= require("raw-loader!../../shared/comment-footer-info.htmlt") %>
 
     </d-article>
 
